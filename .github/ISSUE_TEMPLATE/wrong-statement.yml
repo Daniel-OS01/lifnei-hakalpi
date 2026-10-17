@@ -1,0 +1,46 @@
+name: דיווח על הצהרה שגויה
+description: הצהרה, ציטוט או ערך באתר שאינם מדויקים או שאין להם מקור
+title: "[הצהרה שגויה] "
+labels: ["data", "wrong-statement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        תודה. כל תיקון באתר נשען על מקור שאפשר לפתוח. בלי קישור למקור לא נוכל לבדוק.
+  - type: input
+    id: list
+    attributes:
+      label: הרשימה
+      description: שם הרשימה או האות שלה
+    validations:
+      required: true
+  - type: textarea
+    id: statement
+    attributes:
+      label: ההצהרה כפי שמופיעה באתר
+      description: ציטוט מדויק של הטקסט באתר
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: קישור למקור
+      description: קישור לדבר שנאמר או נכתב, או למקור שסותר את מה שבאתר
+      placeholder: https://
+    validations:
+      required: true
+  - type: input
+    id: date
+    attributes:
+      label: תאריך ההצהרה
+      description: התאריך שבו נאמר או פורסם הדבר, אם ידוע
+      placeholder: YYYY-MM-DD
+    validations:
+      required: false
+  - type: textarea
+    id: wrong
+    attributes:
+      label: מה לא נכון
+      description: מה שגוי, חסר או מטעה, ומה לדעתך הנכון
+    validations:
+      required: true
