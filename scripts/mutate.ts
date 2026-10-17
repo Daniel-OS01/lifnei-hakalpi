@@ -40,6 +40,8 @@ const M: Mutation[] = [
   // pipeline
   { name: "pipeline: classification filter removed", file: PIPE, from: '|| e.classification !== "counted") continue;', to: ") continue;" },
   { name: "pipeline: loadSnapshot hash comparison skipped", file: PIPE, from: "check(got === want, ", to: "check(true, " },
+  { name: "pipeline: election.json snapshotSha256 pin skipped", file: "scripts/build-data.ts", from: "if (snap.dataSha !== election.snapshotSha256)", to: "if (false)" },
+  { name: "pipeline: outside-support level rule skipped", file: PIPE, from: "check(x.lv === exp || ", to: "check(true || " },
   // repository checks
   { name: "dash ban: U+2014 only", file: "scripts/check-dashes.ts", from: String.raw`const DASH = /[\u2013\u2014\u2015]/;`, to: String.raw`const DASH = /[\u2014]/;` },
   { name: "election-agnostic: ISO date rule removed", file: "scripts/check-election-agnostic.ts", from: String.raw`    ["ISO date", /\b\d{4}-\d{2}-\d{2}\b/],` + "\n", to: "" },

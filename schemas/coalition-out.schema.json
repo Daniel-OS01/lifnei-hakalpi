@@ -8,7 +8,7 @@
       "type": "string"
     },
     "schemaVersion": {
-      "const": 1
+      "const": 2
     },
     "arab": {
       "type": "array",
@@ -35,6 +35,10 @@
           },
           "db": {
             "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/db"
+          },
+          "why": {
+            "description": "Maintainer note, not shown on the site: why lv departs from the level the database value implies (-2 X, +1/+2 P, else N). Required by build-data whenever it departs.",
+            "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/text"
           }
         },
         "required": [

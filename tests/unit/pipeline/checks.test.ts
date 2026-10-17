@@ -248,3 +248,21 @@ describe("snapshot cross-checks", () => {
     expect(validateAgainst("site", JSON.parse(built().text))).toEqual([]);
   });
 });
+
+describe("outside-support levels follow the database unless a reason is written", () => {
+  const outPath = (root: string) => join(root, "data/elections", ID, "coalition/out.json");
+  it("every curated entry whose level departs from its database value carries a why", () => {
+    const o = coal("out").out as Record<string, { lv: string; db: [string, number | null]; why?: string }>;
+    const departs = Object.entries(o).filter(([, x]) => x.lv !== (x.db[1] === -2 ? "X" : x.db[1] != null && x.db[1] >= 1 ? "P" : "N"));
+    expect(departs.map(([k]) => k).sort()).toEqual(Object.entries(o).filter(([, x]) => x.why).map(([k]) => k).sort());
+    expect(departs.length).toBeGreaterThan(0);
+  });
+  it("removing a why from such an entry is refused by the build", () => {
+    const root = copyTree();
+    const o = JSON.parse(readFileSync(outPath(root), "utf8"));
+    const [k] = Object.entries(o.out as Record<string, { why?: string }>).find(([, x]) => x.why)!;
+    delete o.out[k].why;
+    writeFileSync(outPath(root), JSON.stringify(o));
+    expect(build(root)).toThrow(/needs a "why"/);
+  });
+});

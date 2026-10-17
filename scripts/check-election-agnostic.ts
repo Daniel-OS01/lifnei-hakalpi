@@ -1,7 +1,7 @@
 /* Fails when app code names an election: dates, the threshold, the source domain, a Knesset number phrase, a
-   Knesset-numbered source field name (knesset25_...) or a list id. The pipeline core (scripts/lib) is scanned
-   for the field name only: its v5 port checks name lists on purpose, but a field it reads must come from election.json.
-   Usage: npx tsx scripts/check-election-agnostic.ts [dir]   (default: src with every rule, scripts/lib with the field rule) */
+   Knesset-numbered source field name (knesset25_...) or a list id. The pipeline core (scripts/lib) gets the same
+   rules: list-specific exceptions belong in the curated data files, with a written reason, not in code.
+   Usage: npx tsx scripts/check-election-agnostic.ts [dir]   (default: src and scripts/lib, every rule) */
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, relative } from "node:path";
 
@@ -49,7 +49,7 @@ export function scan(dir: string, ids: string[], fieldsOnly = false): string[] {
 
 if (process.argv[1] && process.argv[1].endsWith("check-election-agnostic.ts")) {
   const ids = partyIds();
-  const hits = process.argv[2] ? scan(process.argv[2], ids) : [...scan("src", ids), ...scan("scripts/lib", ids, true)];
+  const hits = process.argv[2] ? scan(process.argv[2], ids) : [...scan("src", ids), ...scan("scripts/lib", ids)];
   hits.forEach((h) => console.log(h));
   if (hits.length) { console.error(hits.length + " election-specific value(s) in app code"); process.exit(1); }
   console.log("check-election-agnostic: clean");

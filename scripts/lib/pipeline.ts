@@ -336,11 +336,11 @@ export function buildCoalition(snap: Snapshot, C: Record<string, Any>, election:
     const rec = DB.get(`${pid}|OUT|s`)!;
     check(rec, `OUT: no assessment for ${pid}`);
     check(rec.v === x.db[1], `OUT db mismatch ${pid}: file ${rec.v}, entry ${x.db[1]}`);
-    // level must follow the database value: -2 -> X, +1/+2 -> P, -1/0/null -> N (no explicit statement)
-    let exp = rec.v === -2 ? "X" : rec.v != null && rec.v >= 1 && pid === "hademokratim" ? "P" : "N";
-    if (pid === "utj" || pid === "noam") exp = "N"; // rests on words of someone who does not head this list today
-    if (pid === "likud") exp = "N"; // attacks a rival government; does not say Likud would refuse such support
-    check(x.lv === exp, `OUT level for ${pid} should be ${exp}`);
+    // The level follows the database value: -2 -> X, +1/+2 -> P, -1/0/null -> N (no explicit statement).
+    // A curated entry may depart from that only with a written reason in "why", which a reviewer sees in the PR.
+    const exp = rec.v === -2 ? "X" : rec.v != null && rec.v >= 1 ? "P" : "N";
+    check(x.lv === exp || (typeof x.why === "string" && x.why.trim().length > 0),
+      `OUT level for ${pid} should be ${exp} (database value ${rec.v}); a different level needs a "why"`);
     check(x.src?.length, `OUT ${pid}: needs a source`);
     out[pid] = { lv: x.lv, t: x.t, s: src(x.src), v: rec.v, c: rec.c, im: rec.im };
   }

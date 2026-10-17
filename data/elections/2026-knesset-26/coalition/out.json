@@ -1,6 +1,6 @@
 {
  "$schema": "../../../../schemas/coalition-out.schema.json",
- "schemaVersion": 1,
+ "schemaVersion": 2,
  "arab": [
   "raam",
   "hadash-taal"
@@ -19,6 +19,7 @@
   },
   "likud": {
    "lv": "N",
+   "why": "The statement attacks a rival government relying on Arab parties; it does not say Likud would refuse such support.",
    "t": "נתניהו, 16.9.2026, תקף ממשלה של יריביו שתישען על המפלגות הערביות, וקרא להצביע ליכוד כדי למנוע אותה. המאגר מדרג התנגדות מפורשת (-2). האמירה עוסקת בממשלה של אחרים, ולא נאמר בה שהליכוד לא יקבל תמיכה כזו, ולכן כאן \"לא אמרה\", כמו בהודעת ש\"ס מ-7.7.2026.",
    "src": [
     "likud-claim-netanyahu-arab-parties-2026-09"
@@ -63,6 +64,7 @@
   },
   "utj": {
    "lv": "N",
+   "why": "Rests on words of a former list head (Gafni, 2021); the current head has not spoken, so the list's own position is unknown.",
    "t": "ב-2021 תקף גפני, שעמד אז בראש הרשימה, את סירוב סמוטריץ' לתמיכת רע\"ם. יעקב אשר, העומד היום בראשה, לא התייחס. ביטחון נמוך.",
    "src": [
     "utj-coal2021b-claim-gafni-attacks-smotrich-2021-04"
@@ -142,6 +144,7 @@
   },
   "noam": {
    "lv": "N",
+   "why": "The database value comes from a 2021 statement by Smotrich, who does not head Noam; Noam itself has said nothing.",
    "t": "המאגר מייחס עמדה בביטחון נמוך לפי הודעת סמוטריץ' מ-2021. זו לא אמירה של נעם עצמה.",
    "src": [
     "rz-claim-smotrich-raam-disaster-quote-2021-04-02"

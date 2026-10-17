@@ -100,8 +100,8 @@ describe("app shell views", () => {
     } finally { rmSync(".tmp/agnostic-probe", { recursive: true, force: true }); }
   });
 
-  it("election-agnostic check: scripts/lib names no Knesset-numbered source field", () => {
-    expect(scan("scripts/lib", [], true)).toEqual([]);
+  it("election-agnostic check: scripts/lib names no list id, date or Knesset-numbered source field", () => {
+    expect(scan("scripts/lib", partyIds())).toEqual([]);
     mkdirSync(".tmp/agnostic-probe-fields", { recursive: true });
     try {
       writeFileSync(".tmp/agnostic-probe-fields/x.ts", "const k = p.knesset25_faction_he; // 2026-10-27\n");
