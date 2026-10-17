@@ -25,10 +25,10 @@ function check(cond: unknown, msg: string): asserts cond {
 export const dmy = (iso: string | null | undefined): string =>
   iso ? iso.split("-").reverse().map((x, i) => (i < 2 ? String(Number(x)) : x)).join(".") : "";
 
-const DASH_RE = /[–—―]/;
+const DASH_RE = /[\u2013\u2014\u2015]/;
 /** build_coal.py nodash, applied to source-derived text. */
 export function nodash<T>(o: T): T {
-  if (typeof o === "string") return o.replace(/ – /g, ", ").replace(/–/g, "-").replace(/—/g, ", ") as T;
+  if (typeof o === "string") return o.replace(/ \u2013 /g, ", ").replace(/\u2013/g, "-").replace(/\u2014/g, ", ") as T;
   if (Array.isArray(o)) return o.map(nodash) as T;
   if (o && typeof o === "object") return Object.fromEntries(Object.entries(o).map(([k, v]) => [k, nodash(v)])) as T;
   return o;

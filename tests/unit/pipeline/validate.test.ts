@@ -77,7 +77,7 @@ describe("validate-data", () => {
     expect(errs.some((e) => e.startsWith("data/stray.json:"))).toBe(true);
   });
 
-  it.each(["–", "—", "―"])("dash U+%s written into a text field fails", (dash) => {
+  it.each(["\u2013", "\u2014", "\u2015"])("dash U+%s written into a text field fails", (dash) => {
     const root = copyTree();
     mutate(root, "coalition/cells.json", (j) => {
       j.cells[0].t += ` x${dash}y`;
@@ -89,7 +89,7 @@ describe("validate-data", () => {
   it("a dash in a content text field fails", () => {
     const root = copyTree();
     mutate(root, "content/questions.json", (j) => {
-      j.questions[0].stmt += "–";
+      j.questions[0].stmt += "\u2013";
     });
     expect(validateAll(root).some((e) => e.includes("content/questions.json:") && e.includes("/questions/0/stmt"))).toBe(true);
   });
@@ -97,7 +97,7 @@ describe("validate-data", () => {
   it("the CLI honours LH_DATA_ROOT, prints file: error lines and exits 1", () => {
     const root = copyTree();
     mutate(root, "coalition/scenarios.json", (j) => {
-      j.scen[0].why += "—";
+      j.scen[0].why += "\u2014";
     });
     const env = Object.fromEntries(Object.entries(process.env).filter(([k]) => !k.startsWith("GIT_")));
     const run = (r: string) => spawnSync(join(REPO, "node_modules/.bin/tsx"), [join(REPO, "scripts/validate-data.ts")], { env: { ...env, LH_DATA_ROOT: r }, encoding: "utf8" });

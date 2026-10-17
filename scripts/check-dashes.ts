@@ -12,7 +12,7 @@ const SKIP_EXT = new Set([
   ".gz", ".br", ".zip", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".ico",
   ".woff", ".woff2", ".ttf", ".otf", ".eot", ".pdf", ".mp4", ".webm", ".mp3",
 ]);
-export const DEFAULT_PATHS = ["src", "data", "docs", "dist", "config", "CHANGELOG.md", "README.md"];
+export const DEFAULT_PATHS = ["src", "data", "docs", "dist", "config", "scripts", "tests", "schemas", ".github", "index.html", "CHANGELOG.md", "README.md"];
 
 export interface DashHit {
   file: string;
