@@ -4,6 +4,8 @@ import type { Ctx, Question, QuizData } from "../types";
 import { esc, fill, electionVars } from "../lib/html";
 import { getState, type Basis, type QuizState } from "./state";
 import { countValues, fmt, issueUrl, noneLabel, score, url, userLabel, valLabel } from "./score";
+import { inBan } from "../time";
+import { pageVars } from "../views/shell";
 
 export interface ReflectItem { id: string; t: string; q: string }
 interface HomeContent { intro: string; shortDuration: string; longDuration: string; beforeStart: string }
@@ -129,6 +131,9 @@ export function results(ctx: Ctx): string {
   }
   const res = score(D, S, S.basis), alt: Record<string, number | null> = {};
   (["said", "did"] as Basis[]).forEach((b) => { score(D, S, b).forEach((r) => { alt[b + r.p.id] = r.pct; }); });
+  // during the poll ban, threshold tags from earlier polls carry the notice the law requires (same texts as the parties tab)
+  const P = ctx.site.content.pages.parties, ban = inBan(ctx.now, ctx.site.election), stale = ban ? P.seatsBanSuffix : "";
+  let pollTags = false;
   const list = res.map((r, i) => {
     const tags: string[] = [];
     if (r.reds.length) tags.push('<span class="tag red">חוצה קו אדום: ' + r.reds.map((x) => esc(x.label)).join(", ") + '</span>');
@@ -136,8 +141,9 @@ export function results(ctx: Ctx): string {
     tags.push('<span class="tag">מידע על ' + r.covered + ' מתוך ' + r.answered + ' היגדים</span>');
     const sa = alt["said" + r.p.id], da = alt["did" + r.p.id];
     if (S.basis === "both" && sa !== null && da !== null && Math.abs(sa - da) >= 10) tags.push('<span class="tag warn">לפי מה שאמרו ' + sa + '%, לפי מה שעשו ' + da + '%</span>');
-    if (r.p.th === "below") tags.push('<span class="tag warn">בסקרים מתחת לאחוז החסימה</span>');
-    if (r.p.th === "near") tags.push('<span class="tag warn">בסקרים סביב אחוז החסימה</span>');
+    if (r.p.th === "below") tags.push('<span class="tag warn">בסקרים מתחת לאחוז החסימה' + stale + '</span>');
+    if (r.p.th === "near") tags.push('<span class="tag warn">בסקרים סביב אחוז החסימה' + stale + '</span>');
+    if (r.p.th === "below" || r.p.th === "near") pollTags = true;
     const pctTxt = r.pct === null ? '<span class="muted" style="font-size:1rem">אין</span>' : r.pct + '<small>%</small>';
     const detail = r.rows.map((x) => {
       let verdict: string, cls: string;
@@ -172,6 +178,7 @@ export function results(ctx: Ctx): string {
   return '<section class="stack" aria-labelledby="h-res">' +
     '<span class="eyebrow">התוצאות שלך · ' + modeName(S) + '</span>' +
     '<h2 id="h-res">עד כמה כל רשימה קרובה לעמדות שלך</h2>' +
+    (ban && pollTags ? '<div class="banner" role="note">' + fill(P.banNotice, pageVars(ctx)) + '</div>' : '') +
     '<div class="row">' + basisSeg(S) + '</div><p class="small muted" id="basis-txt">' + BASIS_TXT[S.basis] + '</p>' +
     '<p class="muted small">הקרבה בכל היגד היא 1 פחות המרחק בין העמדות חלקי 4. התוצאה היא ממוצע משוקלל לפי החשיבות שנתת. ערך שנשען רק על ראיה חלשה מקבל חצי משקל, והיגדים בלי מידע על הרשימה לא נספרים לה. לחיצה על רשימה פותחת את הפירוט ואת הקישורים לראיות.</p>' +
     '<div class="legend"><span>קרוב: הבדל של עד דרגה אחת</span><span>קרוב חלקית: בערך שתי דרגות</span><span>רחוק: יותר מזה</span></div>' +

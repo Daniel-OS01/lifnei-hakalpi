@@ -11,8 +11,24 @@ export interface QuizState {
 
 export function stateKey(electionId: string): string { return `${config.storageKeyPrefix}-${electionId}-quiz-v2`; }
 export function fresh(mode?: Mode | null): QuizState { return { mode: mode || null, step: 0, ans: {}, imp: {}, red: {}, top: [], refl: {}, done: false, basis: "both" }; }
+const isObj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === "object" && !Array.isArray(v);
+/** Stored JSON to a state: each field is kept only when it has v5's shape, otherwise it takes the fresh() value. */
+function valid(o: unknown): QuizState {
+  const s = fresh();
+  if (!isObj(o)) return s;
+  if (o.mode === "short" || o.mode === "long") s.mode = o.mode;
+  if (typeof o.step === "number" && Number.isInteger(o.step) && o.step >= 0) s.step = o.step;
+  if (isObj(o.ans)) s.ans = o.ans as QuizState["ans"];
+  if (isObj(o.imp)) s.imp = o.imp as QuizState["imp"];
+  if (isObj(o.red)) s.red = o.red as QuizState["red"];
+  if (isObj(o.refl)) s.refl = o.refl as QuizState["refl"];
+  if (Array.isArray(o.top) && o.top.every((t) => typeof t === "string")) s.top = o.top;
+  if (typeof o.done === "boolean") s.done = o.done;
+  if (o.basis === "both" || o.basis === "said" || o.basis === "did") s.basis = o.basis;
+  return s;
+}
 export function load(electionId: string): QuizState | null {
-  try { const r = localStorage.getItem(stateKey(electionId)); return r ? JSON.parse(r) : null; } catch { return null; }
+  try { const r = localStorage.getItem(stateKey(electionId)); return r ? valid(JSON.parse(r)) : null; } catch { return null; }
 }
 
 const states = new Map<string, QuizState>();

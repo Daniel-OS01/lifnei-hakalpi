@@ -245,10 +245,41 @@ describe("render", () => {
     fixed();
     expect(clean(summaryText(ctx)).split("\n").length).toBe(7);
   });
+
+  it("during the poll ban, results with poll threshold tags carry the ban notice and the stale label", () => {
+    const P = site.content.pages.parties, banCtx: Ctx = { ...ctx, now: Date.parse("2026-10-25T12:00:00+03:00") };
+    expect(D.parties.some((p) => p.th === "below")).toBe(true);
+    fixed();
+    const hb = clean(V.results(banCtx));
+    expect(hb).toContain('<div class="banner" role="note"><b>תקופת איסור פרסום סקרים.</b>');
+    expect(hb).toContain("בסקרים מתחת לאחוז החסימה" + P.seatsBanSuffix + "</span>");
+    expect(hb).toContain("בסקרים סביב אחוז החסימה" + P.seatsBanSuffix + "</span>");
+    expect(hb).not.toMatch(/החסימה<\/span>/);
+    const h = V.results(ctx);
+    expect(h).not.toContain('class="banner"');
+    expect(h).not.toContain(P.seatsBanSuffix);
+    expect(h).toContain("בסקרים מתחת לאחוז החסימה</span>");
+  });
 });
 
 /* ---------- state and handlers ---------- */
 describe("state", () => {
+  it("a stored state of the wrong shape loads as a usable state and home renders", () => {
+    const store: Record<string, string> = {};
+    (globalThis as any).localStorage = { getItem: (k: string) => store[k] ?? null, setItem: (k: string, v: string) => { store[k] = v; } };
+    try {
+      ["{}", '{"ans":null}', "not json"].forEach((raw, i) => {
+        const id = "bad-state-" + i, c: Ctx = { ...ctx, site: { ...site, election: { ...site.election, id } } };
+        store[stateKey(id)] = raw;
+        let h = "";
+        expect(() => { h = V.home(c); }, raw).not.toThrow();
+        expect(h).toContain('id="h-home"');
+        expect(getState(id)).toEqual(fresh());
+      });
+      store[stateKey("partial")] = JSON.stringify({ mode: "long", step: 3, ans: { core: 1 }, imp: [], top: "x", done: "yes", basis: "all" });
+      expect(load("partial")).toEqual({ ...fresh("long"), step: 3, ans: { core: 1 } });
+    } finally { delete (globalThis as any).localStorage; }
+  });
   it("key, load and save are guarded and use the configured prefix", () => {
     expect(stateKey(ID)).toBe("lifnei-hakalpi-2026-knesset-26-quiz-v2");
     expect(load(ID)).toBeNull();   // no localStorage in node: guarded
