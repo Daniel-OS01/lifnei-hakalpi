@@ -1,0 +1,8 @@
+{
+  "$schema": "../schemas/site-config.schema.json",
+  "schemaVersion": 1,
+  "siteVersion": "5.0.0",
+  "currentElection": "2026-knesset-26",
+  "elections": ["2026-knesset-26"],
+  "storageKeyPrefix": "lifnei-hakalpi"
+}

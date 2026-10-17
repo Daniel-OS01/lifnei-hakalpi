@@ -1,0 +1,43 @@
+{
+  "$schema": "../../../schemas/election.schema.json",
+  "schemaVersion": 1,
+  "id": "2026-knesset-26",
+  "kind": "knesset",
+  "knessetNumber": 26,
+  "nameHe": "הבחירות לכנסת ה-26",
+  "dateIso": "2026-10-27",
+  "dayHe": "יום שלישי, 27.10.2026",
+  "pollsOpen": "2026-10-27T07:00:00+02:00",
+  "pollsClose": "2026-10-27T22:00:00+02:00",
+  "timezone": "Asia/Jerusalem",
+  "thresholdPct": 3.25,
+  "totalSeats": 120,
+  "majority": 61,
+  "minSeatsIfPassed": 4,
+  "pollBan": {
+    "from": "2026-10-24T00:00:00+03:00",
+    "until": "2026-10-27T22:00:00+02:00",
+    "lawRef": "סעיף 16ה(ח) לחוק הבחירות (דרכי תעמולה)",
+    "lawUrl": "https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%94%D7%91%D7%97%D7%99%D7%A8%D7%95%D7%AA_(%D7%93%D7%A8%D7%9B%D7%99_%D7%AA%D7%A2%D7%9E%D7%95%D7%9C%D7%94)",
+    "sourceNote": "המועדים לקוחים מקובץ הנתונים של המאגר (election.poll_ban)"
+  },
+  "pollingInfo": {
+    "lookupUrl": "https://www.gov.il/apps/moin/bocharim/",
+    "phones": ["1-800-101975", "073-2458358"],
+    "sms": "053-3801464",
+    "registerClosed": "2026-09-03"
+  },
+  "source": {
+    "nameHe": "מה אמרו, ומה עשו",
+    "author": "ניר אדר",
+    "baseUrl": "https://elections2026.underwar.co.il/",
+    "dataUrl": "https://elections2026.underwar.co.il/data.json",
+    "evidencePath": "parties/{id}-evidence.html",
+    "listPath": "parties/{id}.html",
+    "pollsPath": "polls.html",
+    "issuePath": "issues/{issue}.html"
+  },
+  "snapshot": "2026-10-17",
+  "listsAllApprovedUrl": "https://www.ice.co.il/local-news/news/article/1131229",
+  "listsAllApprovedCount": 38
+}
