@@ -1,0 +1,39 @@
+{
+  "name": "lifnei-hakalpi",
+  "version": "5.0.0",
+  "private": true,
+  "description": "לפני הקלפי: מדריך בחירות אזרחי, ניטרלי ומבוסס מקורות",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "fetch-source": "tsx scripts/fetch-source.ts",
+    "build-data": "tsx scripts/build-data.ts",
+    "dev": "npm run build-data && vite",
+    "build": "npm run build-data && vite build && tsx scripts/check-dashes.ts dist",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "check": "tsx scripts/check-dashes.ts && tsx scripts/check-election-agnostic.ts && tsx scripts/validate-data.ts",
+    "mutate": "tsx scripts/mutate.ts",
+    "linkcheck": "tsx scripts/link-check.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/node": "22.20.5",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "marked": "18.1.1",
+    "node-html-parser": "9.0.4",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-sans-hebrew": "5.3.0",
+    "@fontsource/secular-one": "5.3.0"
+  }
+}
