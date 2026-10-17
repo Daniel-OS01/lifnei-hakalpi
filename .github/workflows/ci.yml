@@ -40,5 +40,16 @@ jobs:
           path: playwright-report/
           if-no-files-found: ignore
           retention-days: 14
-      - name: Docker build
-        run: docker build -t lifnei-hakalpi:ci .
+      - name: docker compose up, health check and headers
+        run: |
+          docker compose up -d --build --wait --wait-timeout 120
+          curl -fsS http://localhost:8080/healthz
+          curl -fsS http://localhost:8080/ | grep -q "<html"
+          curl -fsS http://localhost:8080/data/elections/2026-knesset-26/site.json -o /dev/null
+          curl -fsSI http://localhost:8080/ | grep -i "^cache-control: no-cache"
+          asset=$(curl -fsS http://localhost:8080/ | grep -o 'assets/[^"]*\.js' | head -1)
+          curl -fsSI "http://localhost:8080/$asset" | grep -i "^cache-control:.*immutable"
+          curl -fsSI -H "Accept-Encoding: gzip" "http://localhost:8080/$asset" | grep -i "^content-encoding: gzip"
+      - name: docker compose logs
+        if: always()
+        run: docker compose logs --no-color || true
