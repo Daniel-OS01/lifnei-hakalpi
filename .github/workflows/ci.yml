@@ -45,7 +45,8 @@ jobs:
           docker compose up -d --build --wait --wait-timeout 120
           curl -fsS http://localhost:8080/healthz
           curl -fsS http://localhost:8080/ | grep -q "<html"
-          curl -fsS http://localhost:8080/data/elections/2026-knesset-26/site.json -o /dev/null
+          election=$(node -p "require('./config/site.json').currentElection")
+          curl -fsS "http://localhost:8080/data/elections/$election/site.json" -o /dev/null
           curl -fsSI http://localhost:8080/ | grep -i "^cache-control: no-cache"
           asset=$(curl -fsS http://localhost:8080/ | grep -o 'assets/[^"]*\.js' | head -1)
           curl -fsSI "http://localhost:8080/$asset" | grep -i "^cache-control:.*immutable"

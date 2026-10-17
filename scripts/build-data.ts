@@ -49,7 +49,7 @@ export function buildElection(root: string, id: string, siteVersion: string, now
   for (const [name, p] of Object.entries(readDir(join(E, "coalition"), ".json"))) coal[name] = readJson(p);
   for (const k of ["cells", "pm", "out", "lists", "surplus", "scenarios", "meta"]) if (!coal[k]) fail(`${id}: coalition/${k}.json is required`);
   const site = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     build: { builtAt: now.toISOString(), siteVersion, snapshot: { date: election.snapshot, sha256: snap.dataSha, sourceBuiltAt: snap.data.builtAt } },
     election,
     quiz: buildQuiz(snap, content.questions, content.lists, election.source.baseUrl + "parties/", ev),

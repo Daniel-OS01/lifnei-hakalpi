@@ -4,8 +4,8 @@ How the data schemas in `schemas/` are versioned, and a log of every change.
 
 ## Policy
 
-- The generated `site.json` carries `schemaVersion: 1`. The app reads that shape; see [architecture.md](architecture.md) for the contract.
-- Every schema that has a `schemaVersion` property fixes it with `"const": 1`, and every data file it covers writes `"schemaVersion": 1`. That `const` is the schema's version note. Five content schemas (`content-home`, `content-pages`, `content-reflect`, `content-results`, `content-tools`) have no `schemaVersion` property; for them the entry in this file is the only version record.
+- The generated `site.json` carries `schemaVersion: 2`. The app reads that shape; see [architecture.md](architecture.md) for the contract.
+- Every schema that has a `schemaVersion` property fixes it with a `"const"` (1 until the schema first changes), and every data file it covers writes that value. That `const` is the schema's version note. Five content schemas (`content-home`, `content-pages`, `content-reflect`, `content-results`, `content-tools`) have no `schemaVersion` property; for them the entry in this file is the only version record.
 - A change to a schema is any change that makes a file valid that was invalid before, or the other way round: a new field, a removed field, a new required field, a changed type, enum or pattern.
 - A schema change does three things in the same commit:
   1. Raises the version note in the changed schema file (`schemaVersion` `const` to the next integer) and updates `schemaVersion` in every data file it covers. A schema without the property gets one when it first changes.
@@ -21,3 +21,5 @@ Each entry gives: date, schema, change, how to migrate data, and the site versio
 | Date | Schema | Change | How to migrate data | Site version |
 |---|---|---|---|---|
 | 2026-10-17 | all schemas | Initial version 1 | Nothing to migrate: the data files were written for version 1 | 5.0.0 |
+| 2026-10-17 | `election.schema.json` | Version 2. New required `source.fields.prevFaction`: the name of the source `data.json` party field that holds the faction in the outgoing Knesset, so the build no longer names a Knesset number in code | Set `"schemaVersion": 2` and add `"fields": { "prevFaction": "<field name>" }` under `source` (`knesset25_faction_he` for the 26th Knesset) | 5.0.0 |
+| 2026-10-17 | `site.schema.json` | Version 2. `coalition.lists[].k25` renamed to `prevFaction` (required, same type) | Generated file: rebuild with `npm run build-data`. `scripts/build-data.ts` and `src/types.ts` write and read `schemaVersion: 2` | 5.0.0 |

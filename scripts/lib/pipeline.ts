@@ -124,12 +124,14 @@ export function claimIndex(data: Any, evidence: Record<string, string>): { index
   return { index, ids };
 }
 
-/** The golden meta.json chunk. */
-export function metaChunk(data: Any): Any[] {
+/** The golden meta.json chunk, with the previous-Knesset faction read from the source field election.json
+    source.fields.prevFaction names (the golden file calls it k25). */
+export function metaChunk(data: Any, prevFactionField: string): Any[] {
   const people: Record<string, Any> = Object.fromEntries(data.people.map((x: Any) => [x.id, x]));
+  for (const p of data.parties) check(prevFactionField in p, `party ${p.id} has no field ${prevFactionField} (election.json source.fields.prevFaction)`);
   return data.parties.map((p: Any) => ({
     id: p.id, n: p.name_he, sn: p.short_name_he, l: p.ballot_letters, lead: people[p.leader_id].name_he, leadId: p.leader_id,
-    cp: p.constituent_parties_he, k25: p.knesset25_faction_he, sw: p.seat_window, upd: p.last_updated, polls: p.polls,
+    cp: p.constituent_parties_he, prevFaction: p[prevFactionField], sw: p.seat_window, upd: p.last_updated, polls: p.polls,
     bt: p.__poll_standing && p.__poll_standing.below_threshold_pct,
   }));
 }
@@ -277,7 +279,7 @@ export function coalDb(data: Any): Map<string, Rec> {
 export function buildCoalition(snap: Snapshot, C: Record<string, Any>, election: Any, claims: Record<string, ClaimRow>): Any {
   const { data } = snap;
   const BASE: string = election.source.baseUrl;
-  const meta = nodash(metaChunk(data));
+  const meta = nodash(metaChunk(data, election.source.fields.prevFaction));
   const IDS = meta.map((p: Any) => p.id);
   const DB = coalDb(data);
   check(DB.size === IDS.length * 8, `coalition questions: expected ${IDS.length * 8} assessments, found ${DB.size}`);
@@ -360,7 +362,7 @@ export function buildCoalition(snap: Snapshot, C: Record<string, Any>, election:
     const sw = p.sw;
     check(L.gov[p.id], `coalition/lists.json: no gov entry for ${p.id}`);
     return {
-      id: p.id, n: p.n, sn: p.sn, l: p.l, lead: p.lead, cp: p.cp || [], k25: p.k25 ?? null,
+      id: p.id, n: p.n, sn: p.sn, l: p.l, lead: p.lead, cp: p.cp || [], prevFaction: p.prevFaction ?? null,
       med: sw.median, lo: sw.low, hi: sw.high, pn: sw.n, pf: sw.from, pt: sw.to, outlets: p.polls[0].pollster, bt: p.bt || [],
       gov: { t: L.gov[p.id].t, s: src(L.gov[p.id].src) },
       cond: L.cond[p.id] ? { t: L.cond[p.id].t, s: src(L.cond[p.id].src) } : null,

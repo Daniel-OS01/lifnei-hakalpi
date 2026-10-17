@@ -5,7 +5,7 @@
   "type": "object",
   "properties": {
     "schemaVersion": {
-      "const": 1
+      "const": 2
     },
     "build": {
       "type": "object",
@@ -498,7 +498,7 @@
                   "pattern": "^[^\\u2013\\u2014\\u2015]*$"
                 }
               },
-              "k25": {
+              "prevFaction": {
                 "anyOf": [
                   {
                     "type": "array",
@@ -595,7 +595,7 @@
               "l",
               "lead",
               "cp",
-              "k25",
+              "prevFaction",
               "med",
               "lo",
               "hi",

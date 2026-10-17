@@ -100,6 +100,18 @@ describe("app shell views", () => {
     } finally { rmSync(".tmp/agnostic-probe", { recursive: true, force: true }); }
   });
 
+  it("election-agnostic check: scripts/lib names no Knesset-numbered source field", () => {
+    expect(scan("scripts/lib", [], true)).toEqual([]);
+    mkdirSync(".tmp/agnostic-probe-fields", { recursive: true });
+    try {
+      writeFileSync(".tmp/agnostic-probe-fields/x.ts", "const k = p.knesset25_faction_he; // 2026-10-27\n");
+      const hits = scan(".tmp/agnostic-probe-fields", [], true);
+      expect(hits).toHaveLength(1);
+      expect(hits[0]).toContain("Knesset-numbered field name");
+      expect(scan(".tmp/agnostic-probe-fields", [])).toHaveLength(2);
+    } finally { rmSync(".tmp/agnostic-probe-fields", { recursive: true, force: true }); }
+  });
+
   it("methodCounts total is parties x questions x 2", () => {
     const total = site.quiz.parties.length * site.quiz.questions.length * 2;
     const m = missingCounts(site);

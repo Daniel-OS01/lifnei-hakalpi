@@ -18,7 +18,7 @@ For the shape of the generated `site.json` see [architecture.md](architecture.md
 | `data/elections/<id>/sources/golden/` | Chunks verified in the browser, used by tests | none |
 | `public/data/elections/<id>/site.json` | Generated output, not committed | `site.schema.json` |
 
-Every schema that has a `schemaVersion` field fixes it at `1` (see [migrations.md](migrations.md)). Five content files have no `schemaVersion` field: `home.json`, `pages.json`, `reflect.json`, `results.json`, `tools.json`.
+Every schema that has a `schemaVersion` field fixes it with a `const`: `2` for `election.schema.json` and `site.schema.json`, `1` for the rest (see [migrations.md](migrations.md)). Five content files have no `schemaVersion` field: `home.json`, `pages.json`, `reflect.json`, `results.json`, `tools.json`.
 
 ## config/site.json
 
@@ -38,7 +38,7 @@ Schema `election.schema.json`. Copied into `site.json` as `election` without cha
 
 | Field | Meaning |
 |---|---|
-| `schemaVersion` | `1` |
+| `schemaVersion` | `2` |
 | `id` | Folder name, for example `2026-knesset-26` |
 | `kind` | Kind of election (`knesset`) |
 | `knessetNumber` | Number of the Knesset being elected |
@@ -63,6 +63,7 @@ Schema `election.schema.json`. Copied into `site.json` as `election` without cha
 | `source.evidencePath`, `source.listPath` | Path templates (`{id}`) for a list's evidence page and list page |
 | `source.pollsPath` | Path of the polls page |
 | `source.issuePath` | Path template (`{issue}`) for an issue page |
+| `source.fields.prevFaction` | Name of the field in the source `data.json` party records that holds the list's faction in the outgoing Knesset (`knesset25_faction_he` for the 26th Knesset). The build reads it from there, so the next election changes this value, not code, and refuses when a party lacks the field. It reaches `site.json` as `coalition.lists[].prevFaction` |
 | `snapshot` | Date of the active snapshot folder under `sources/snapshots/`. The build refuses to run without it |
 | `listsAllApprovedUrl`, `listsAllApprovedCount` | Report of the approved lists and how many there were (optional) |
 

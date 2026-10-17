@@ -190,7 +190,7 @@ export function cardHTML(ctx: Ctx, p: CoalList): string {
   const K = ctx.site.coalition, E = ctx.site.election, C = coalContent(ctx);
   const id = p.id, cq = K.cq[id] as unknown as Record<string, CqCell>, prev = E.knessetNumber - 1;
   const sentence = 'רשימה בראשות ' + esc(p.lead) + (p.cp.length > 1 ? ', איחוד של ' + p.cp.map(esc).join(", ") : '') + '. ' +
-    (p.k25 ? 'בכנסת ה-' + prev + ': ' + p.k25.map((x) => esc(x.trim())).join(", ") + '.' : 'לא כיהנה בכנסת ה-' + prev + ' כסיעה.');
+    (p.prevFaction ? 'בכנסת ה-' + prev + ': ' + p.prevFaction.map((x) => esc(x.trim())).join(", ") + '.' : 'לא כיהנה בכנסת ה-' + prev + ' כסיעה.');
   const polls = inBan(ctx.now, E) ? '' : '<p class="small"><b>סקרים:</b> ' + (p.med > 0 ? 'חציון ' + p.med + ' מנדטים, טווח ' + p.lo + ' עד ' + p.hi : 'בחציון מתחת לאחוז החסימה') + ', לפי ' + p.pn + ' בתי סקרים, ' + dm(p.pf) + ' עד ' + dm(p.pt) + ' (' + esc(p.outlets) + '). <a href="' + esc(K.polls) + '" target="_blank" rel="noopener">טבלת הסקרים במאגר</a></p>';
   const said = K.cells.filter((c) => c.a === id), pmS = K.pm.filter((c) => c.a === id);
   const gaps = p.gaps.map((q) => {

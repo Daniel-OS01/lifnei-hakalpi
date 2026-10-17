@@ -138,6 +138,8 @@ function main(): void {
   const json = (p: string) => JSON.parse(readFileSync(join(REPO, p), "utf8"));
   const q5 = json("tests/fixtures/quiz-v5.json");
   const c5 = json("tests/fixtures/coal-v5.json");
+  // v5 named lists[].prevFaction k25; rename it in place so the field compares, and keeps its row position.
+  c5.lists = c5.lists.map((l: Any) => Object.fromEntries(Object.entries(l).map(([k, v]) => [k === "k25" ? "prevFaction" : k, v])));
   const { site } = buildElection(REPO, ELECTION, "report");
   const md = render(compare(q5, c5, site.quiz, site.coalition), {
     snapshot: site.build.snapshot.date, sha: site.build.snapshot.sha256, quizAsof: q5.asof, coalAsof: c5.asof,

@@ -22,7 +22,7 @@ function v5At(now: number) {
   const VIEWS: Record<string, () => string> = {};
   const win: { __NOW: number; __coal?: { set(s: CoalState): void } } = { __NOW: now };
   new Function("__K", "esc", "VIEWS", "window", "view", "localStorage", "current", "rerender", "announce", "toast", v5src)(
-    clone(K), v5esc, VIEWS, win, { addEventListener() {} }, { getItem: () => null, setItem: () => {} }, "coalition", () => {}, () => {}, () => {});
+    { ...clone(K), lists: K.lists.map((l) => ({ ...clone(l), k25: l.prevFaction })) }, v5esc, VIEWS, win, { addEventListener() {} }, { getItem: () => null, setItem: () => {} }, "coalition", () => {}, () => {}, () => {});
   return (s: CoalState) => { win.__coal!.set(clone(s)); return VIEWS.coalition(); };
 }
 function ours(now: number, s: CoalState) {

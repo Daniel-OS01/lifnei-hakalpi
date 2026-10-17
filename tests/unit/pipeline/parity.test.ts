@@ -5,6 +5,7 @@ import { built, diff, json, REPO } from "./helpers.ts";
 describe("parity with v5", () => {
   it("coalition equals v5 coal.json in every field (scen srcRule is the only addition)", () => {
     const v5 = json(join(REPO, "tests/fixtures/coal-v5.json"));
+    for (const l of v5.lists) { l.prevFaction = l.k25; delete l.k25; } // v5 named the field k25
     const ours = structuredClone(built().site.coalition);
     for (const s of ours.scen) {
       expect(s.srcRule).toBeTruthy();
