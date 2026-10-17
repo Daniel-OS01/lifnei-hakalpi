@@ -1,6 +1,6 @@
 {
   "$schema": "../../../schemas/election.schema.json",
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "id": "2026-knesset-26",
   "kind": "knesset",
   "knessetNumber": 26,
@@ -39,6 +39,7 @@
     "fields": { "prevFaction": "knesset25_faction_he" }
   },
   "snapshot": "2026-10-17",
+  "snapshotSha256": "725c1a0e5cdfe798fbaa382c8bc799d608e9dd37f20520838572d21f6ec62c8d",
   "listsAllApprovedUrl": "https://www.ice.co.il/local-news/news/article/1131229",
   "listsAllApprovedCount": 38
 }

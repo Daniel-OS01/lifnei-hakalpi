@@ -41,6 +41,9 @@ export function buildElection(root: string, id: string, siteVersion: string, now
   const election = readJson(join(E, "election.json"));
   if (!election.snapshot) fail(`${id}: election.json has no active snapshot`);
   const snap = loadSnapshot(join(E, "sources/snapshots", election.snapshot));
+  // The manifest sits next to the files it checks; election.json pins data.json, so an edited snapshot with a regenerated manifest is refused.
+  if (snap.dataSha !== election.snapshotSha256)
+    fail(`snapshot hash does not match election.json snapshotSha256 (election.json ${election.snapshotSha256}, data.json ${snap.dataSha})`);
   const ev = claimIndex(snap.data, snap.evidence);
   const content = buildContent(root, id);
   if (!content.questions) fail(`${id}: content/questions.json is required`);
