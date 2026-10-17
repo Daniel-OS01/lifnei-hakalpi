@@ -22,12 +22,9 @@ export function parseChangelog(md: string): { version: string; date: string; ite
 
 const camel = (s: string) => s.replace(/-([a-z0-9])/g, (_, c: string) => c.toUpperCase());
 
-export function buildElection(root: string, id: string, siteVersion: string, now = new Date()) {
+/** The site.json "content" object for one election (merge rule: docs/architecture.md). Tests reuse it. */
+export function buildContent(root: string, id: string): Record<string, unknown> {
   const E = join(root, "data/elections", id);
-  const election = readJson(join(E, "election.json"));
-  if (!election.snapshot) fail(`${id}: election.json has no active snapshot`);
-  const snap = loadSnapshot(join(E, "sources/snapshots", election.snapshot));
-  const ev = claimIndex(snap.data, snap.evidence);
   const content: Record<string, unknown> = {};
   for (const [name, p] of Object.entries(readDir(join(E, "content"), ".json"))) content[name] = readJson(p);
   for (const [name, p] of Object.entries(readDir(join(E, "content"), ".md"))) content[camel(name) + "Html"] = marked.parse(readFileSync(p, "utf8"));
@@ -36,6 +33,16 @@ export function buildElection(root: string, id: string, siteVersion: string, now
   for (const [name, p] of Object.entries(readDir(join(root, "data/common"), ".json"))) content[name] = readJson(p);
   const cl = join(root, "CHANGELOG.md");
   content.changelog = existsSync(cl) ? parseChangelog(readFileSync(cl, "utf8")) : [];
+  return content;
+}
+
+export function buildElection(root: string, id: string, siteVersion: string, now = new Date()) {
+  const E = join(root, "data/elections", id);
+  const election = readJson(join(E, "election.json"));
+  if (!election.snapshot) fail(`${id}: election.json has no active snapshot`);
+  const snap = loadSnapshot(join(E, "sources/snapshots", election.snapshot));
+  const ev = claimIndex(snap.data, snap.evidence);
+  const content = buildContent(root, id);
   if (!content.questions) fail(`${id}: content/questions.json is required`);
   if (!content.lists) fail(`${id}: content/lists.json is required`);
   const coal: Record<string, unknown> = {};

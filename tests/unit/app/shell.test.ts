@@ -4,8 +4,9 @@ import { shellModule } from "../../../src/views/shell";
 import { methodCounts, missingCounts } from "../../../src/views/method-slots";
 import { scan, partyIds } from "../../../scripts/check-election-agnostic";
 import type { Ctx, SiteData } from "../../../src/types";
+import { v5Site } from "../../helpers/compose-site";
 
-const site: SiteData = JSON.parse(readFileSync("public/data/elections/2026-knesset-26/site.json", "utf8"));
+const site: SiteData = v5Site();
 const NOW = Date.parse("2026-10-18T12:00:00+03:00");
 const BAN_NOW = Date.parse("2026-10-25T12:00:00+03:00");
 const ctxAt = (now: number): Ctx => ({ site, now, electionIds: [site.election.id], siteVersion: site.build.siteVersion });

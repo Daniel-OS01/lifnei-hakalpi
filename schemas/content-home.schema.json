@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "content-home.schema.json",
+  "$id": "https://lifnei-hakalpi.local/schemas/content-home.schema.json",
   "title": "Quiz home page texts (content/home.json)",
   "description": "Texts of the home view that are specific to one election. Strings are trusted HTML fragments inserted as is. Placeholders filled at render: {{lists}}, {{statements}}, {{shortStatements}}, {{values}}, {{reflectTopics}}, plus every electionVars name.",
   "type": "object",

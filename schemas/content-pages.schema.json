@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "content-pages.schema.json",
+  "$id": "https://lifnei-hakalpi.local/schemas/content-pages.schema.json",
   "title": "Per-election page texts (data/elections/<id>/content/pages.json). Strings are trusted HTML with {{placeholders}} filled at render time.",
   "type": "object",
   "additionalProperties": false,

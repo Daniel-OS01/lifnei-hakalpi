@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "content-tools.schema.json",
+  "$id": "https://lifnei-hakalpi.local/schemas/content-tools.schema.json",
   "title": "Other tools shown in the tools tab (data/elections/<id>/content/tools.json)",
   "type": "object",
   "required": ["tools"],

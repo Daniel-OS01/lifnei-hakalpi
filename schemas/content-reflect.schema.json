@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "content-reflect.schema.json",
+  "$id": "https://lifnei-hakalpi.local/schemas/content-reflect.schema.json",
   "title": "Self-check topics shown in the full quiz (content/reflect.json)",
   "description": "Topics with no systematic comparison across lists. They are not scored; the user marks their importance and they are listed in the results. Text fields are escaped on render.",
   "type": "object",

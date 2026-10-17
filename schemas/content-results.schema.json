@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "content-results.schema.json",
+  "$id": "https://lifnei-hakalpi.local/schemas/content-results.schema.json",
   "title": "Quiz results page texts (content/results.json)",
   "description": "Election-specific parts of the results view. The economy item renders as lead, then for each link the anchor followed by its 'after' text, all inside one list item of the self-check section.",
   "type": "object",
