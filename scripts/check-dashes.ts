@@ -5,7 +5,9 @@ import { join, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const DASH = /[\u2013\u2014\u2015]/;
-const SKIP_DIRS = new Set(["node_modules", ".git", ".tmp", "test-results", "playwright-report"]);
+// "sources" holds verbatim third-party snapshots (data/elections/<id>/sources). They are never shipped as is:
+// build-data normalizes their labels and then fails if any of these characters reaches site.json or dist.
+const SKIP_DIRS = new Set(["node_modules", ".git", ".tmp", "test-results", "playwright-report", "sources"]);
 const SKIP_EXT = new Set([
   ".gz", ".br", ".zip", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".ico",
   ".woff", ".woff2", ".ttf", ".otf", ".eot", ".pdf", ".mp4", ".webm", ".mp3",
