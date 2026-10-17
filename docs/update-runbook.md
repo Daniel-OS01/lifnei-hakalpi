@@ -25,14 +25,16 @@ Everything goes through a pull request. CI must be green.
 1. Copy the folder skeleton of the previous election to `data/elections/<new-id>/`.
 2. Fill `election.json`: date, threshold, seats, poll-ban window, polling-station info, source database URLs, active snapshot.
 3. Add the id to `elections` in `config/site.json` and set `currentElection`. Keep the old election in the list so the archive works.
-4. Fetch a snapshot (previous section), then dry run: `npm run build-data`, `npm run check`, `npm test`, `npm run build`, `npm run test:e2e`, and `docker compose up --build`.
-5. CHANGELOG entry (new minor or major version), PR.
+4. Rewrite the copied texts. The views build every number, date and threshold from `election.json`, but the per-election editorial files are copied as they were: `content/*.json`, `content/method-notes.md`, `content/lists.json` and all of `coalition/`. Search them for the old year and Knesset number. `data/common/formation.json` is shared: it names the 26th Knesset in the rotation entry because the law does; change it only if the law changes.
+5. `tests/unit/app/next-election.test.ts` already proves the code side: it copies the data to a temp folder, adds a dummy 2030 election, changes only `config/site.json`, builds and renders every view.
+6. Fetch a snapshot (previous section), then dry run: `npm run build-data`, `npm run check`, `npm test`, `npm run build`, `npm run test:e2e`, and `docker compose up --build`.
+7. CHANGELOG entry (new minor or major version), PR.
 
 ## Pre-publish checklist
 
-- [ ] CI green on the PR, `docker build` passes
+- [ ] CI green on the PR, including the `docker compose up` health and header check
 - [ ] The snapshot hash in the build output matches the one you verified
-- [ ] Poll-ban window in `election.json` is correct: during the window no polls are shown anywhere, and the notice required by section 16ה(ח) is displayed where polls would be
+- [ ] Poll-ban window in `election.json` is correct: during the window the coalition tab loads no poll numbers, and wherever earlier polls are still shown (the lists tab) the notice required by section 16ה(ח) and the "published before the ban" label appear
 - [ ] Election date, threshold and seat count come from `election.json`, not from code
 - [ ] Every new statement has a source link, date and level
 - [ ] `npm run check` reports no dashes
