@@ -72,18 +72,13 @@ for (const tab of TABS) {
         }
         if (box.width >= MIN && box.height >= MIN) return;
         const cs = getComputedStyle(el), bp = blockParent(el);
-        /* v5 exceptions, kept as found in the v5 artifact (lifnei-hakalpi.html), not fixed here:
-           1. Inline links in running text (p, li). WCAG 2.5.8 exempts inline targets in a sentence.
-           2. The same inline links in v5 text blocks that are not p/li: the party-card lines
+        /* Exempt only inline links inside a sentence (WCAG 2.5.8 inline exception):
+           1. Inline links in running text (p, li).
+           2. The same inline links in text blocks that are not p/li: the party-card lines
               (span.td, span.pc), statement stages (div.stages), notes (div.note) and glossary (dd).
-           3. The tab bar: v5 sets nav.tabs button min-height 40px (renders 42px). Must stay >= 40.
-           4. Position pills in the matrix (a.v inside div.pair, 22px tall in v5).
-           5. Tool titles on the tools tab (a.tt, a bold heading link, 26px tall in v5). */
+           v5's undersized tab bar, segmented buttons, matrix pills and tool titles were raised to 44px. */
         if (el.tagName === "A" && cs.display === "inline" && bp && (bp.tagName === "P" || bp.tagName === "LI")) return ex("inline a in p/li");
         if (el.tagName === "A" && cs.display === "inline" && bp && (bp.tagName === "DD" || bp.matches(".td, .pc, .stages, .note"))) return ex("inline a in other v5 text");
-        if (el.matches("nav.tabs button") && box.height >= 40) return ex("nav.tabs button (v5 40px)");
-        if (el.matches(".pair > a.v")) return ex("matrix a.v pill");
-        if (el.matches(".tool > a.tt")) return ex("tools a.tt title");
         violations.push(el.tagName.toLowerCase() + (el.className ? "." + el.className : "") + " " + Math.round(box.width) + "x" + Math.round(box.height) + " '" + (el.textContent || "").trim().slice(0, 30) + "'");
       });
       return { exempt, violations };
