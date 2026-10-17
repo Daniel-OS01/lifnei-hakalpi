@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "content-pages.schema.json",
+  "title": "Per-election page texts (data/elections/<id>/content/pages.json). Strings are trusted HTML with {{placeholders}} filled at render time.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "header",
+    "countdown",
+    "afterBanner",
+    "footer",
+    "matrix",
+    "parties",
+    "tools",
+    "decide"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "header": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "countdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "days",
+        "tomorrow",
+        "today",
+        "after"
+      ],
+      "properties": {
+        "days": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tomorrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "today": {
+          "type": "string",
+          "minLength": 1
+        },
+        "after": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "description": "{{days}} is available in days"
+    },
+    "afterBanner": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Banner after polls open"
+    },
+    "footer": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "matrix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "intro",
+        "caption"
+      ],
+      "properties": {
+        "intro": {
+          "type": "string",
+          "minLength": 1
+        },
+        "caption": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "parties": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "banNotice",
+        "seatsBanSuffix",
+        "intro",
+        "platformsNote",
+        "conductNote",
+        "footer"
+      ],
+      "properties": {
+        "banNotice": {
+          "type": "string",
+          "minLength": 1
+        },
+        "seatsBanSuffix": {
+          "type": "string",
+          "minLength": 1
+        },
+        "intro": {
+          "type": "string",
+          "minLength": 1
+        },
+        "platformsNote": {
+          "type": "string",
+          "minLength": 1
+        },
+        "conductNote": {
+          "type": "string",
+          "minLength": 1
+        },
+        "footer": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "tools": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow",
+        "intro",
+        "note",
+        "footer"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "intro": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "footer": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "decide": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "items",
+        "electionDay"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "electionDay": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}
