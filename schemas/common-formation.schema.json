@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lifnei-hakalpi.local/schemas/common-formation.schema.json",
+  "title": "Government formation: steps, glossary and law links (data/common/formation.json)",
+  "description": "Law-based text shared by all elections. Texts are trusted HTML. {{name}} placeholders are filled from electionVars(election) plus the tab's own values; [[key|text]] becomes a link to law[key].",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "law", "surplusIntro", "stepsTitle", "steps", "checked", "checkedNote", "glossary"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "law": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "type": "string", "pattern": "^https://" }
+    },
+    "surplusIntro": { "$ref": "#/$defs/text" },
+    "stepsTitle": { "$ref": "#/$defs/text" },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "html"],
+        "properties": { "title": { "$ref": "#/$defs/text" }, "html": { "$ref": "#/$defs/text" } }
+      }
+    },
+    "checked": { "type": "string", "pattern": "^\\d{4}-\\d\\d-\\d\\d$" },
+    "checkedNote": { "$ref": "#/$defs/text" },
+    "glossary": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["term", "html"],
+        "properties": { "term": { "$ref": "#/$defs/text" }, "html": { "$ref": "#/$defs/text" } }
+      }
+    }
+  },
+  "$defs": {
+    "text": { "type": "string", "minLength": 1, "not": { "pattern": "[\u2013\u2014\u2015]" } }
+  }
+}

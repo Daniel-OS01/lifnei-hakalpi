@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lifnei-hakalpi.local/schemas/content-coalition.schema.json",
+  "title": "Coalition tab texts for one election (data/elections/<id>/content/coalition.json)",
+  "description": "Election-specific sentences of the coalition tab. Texts are trusted HTML with {{name}} placeholders filled by src/coalition/views.ts. vars adds placeholders that data/common/formation.json may use.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "intro", "banNotice", "pollsNote", "matrixIntro", "outAbout", "supNote", "govLabel", "sourcesNote", "vars"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "intro": { "$ref": "#/$defs/text" },
+    "banNotice": { "$ref": "#/$defs/text" },
+    "pollsNote": { "$ref": "#/$defs/text" },
+    "matrixIntro": { "$ref": "#/$defs/text" },
+    "outAbout": { "$ref": "#/$defs/text" },
+    "supNote": { "$ref": "#/$defs/text" },
+    "govLabel": { "$ref": "#/$defs/text" },
+    "sourcesNote": { "$ref": "#/$defs/text" },
+    "vars": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "not": { "pattern": "[\u2013\u2014\u2015]" } }
+    }
+  },
+  "$defs": {
+    "text": { "type": "string", "minLength": 1, "not": { "pattern": "[\u2013\u2014\u2015]" } }
+  }
+}

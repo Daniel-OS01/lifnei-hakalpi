@@ -29,7 +29,7 @@ export function scan(dir: string, ids: string[]): string[] {
     ["d.m.yyyy date", /\b\d{1,2}\.\d{1,2}\.\d{4}\b/],
     ["threshold", /3\.25/],
     ["source domain", /underwar/],
-    ["Knesset number", /כנסת ה-/],
+    ["Knesset number", /כנסת ה-?\d/],
     ...ids.map((id): [string, RegExp] => ["list id " + id, new RegExp("(?<![\\w-])" + id.replace(/[-]/g, "\\-") + "(?![\\w-])")]),
   ];
   const hits: string[] = [];
