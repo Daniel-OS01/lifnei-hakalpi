@@ -1,0 +1,33 @@
+name: פתיחת מערכת בחירות חדשה
+description: רשימת משימות לפתיחת מערכת בחירות הבאה
+title: "[בחירות חדשות] "
+labels: ["election"]
+body:
+  - type: input
+    id: election-id
+    attributes:
+      label: מזהה הבחירות
+      description: בפורמט שנה-סוג-מספר, למשל 2026-knesset-26
+    validations:
+      required: true
+  - type: input
+    id: election-date
+    attributes:
+      label: מועד הבחירות
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: רשימת משימות
+      options:
+        - label: הועתק שלד התיקיות data/elections/<id>/
+        - label: מולא election.json (מועד, אחוז חסימה, מנדטים, חלון איסור פרסום סקרים, מקורות)
+        - label: נוסף מזהה הבחירות ל-config/site.json ונקבע currentElection
+        - label: הורד או יובא תצלום מקור (fetch-source) ונרשמו טביעות SHA-256
+        - label: הורצו build-data ו-validate-data
+        - label: הורצה ריצת ניסיון (dry run) מלאה, כולל npm test ו-npm run build
+        - label: נבדקו תאריך איסור פרסום הסקרים והודעה לפי סעיף 16ה(ח)
+        - label: נוספה רשומה ל-CHANGELOG.md
+        - label: הבחירות הקודמות נשארו בארכיון ופועלות

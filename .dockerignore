@@ -1,0 +1,8 @@
+node_modules
+.git
+.github
+.tmp
+test-results
+playwright-report
+link-report.md
+*.log

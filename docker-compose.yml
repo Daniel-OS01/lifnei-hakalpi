@@ -1,0 +1,31 @@
+# Works as is with Dokploy's Compose deploy: no external networks, no secrets, no env vars.
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    # Optional: serve through Dokploy's Traefik instead of publishing a host port.
+    # See docs/deploy.md. Remove "ports" above, then uncomment and adapt:
+    # labels:
+    #   - traefik.enable=true
+    #   - traefik.http.routers.lifnei-hakalpi.rule=Host(`example.org`)
+    #   - traefik.http.routers.lifnei-hakalpi.entrypoints=websecure
+    #   - traefik.http.routers.lifnei-hakalpi.tls.certresolver=letsencrypt
+    #   - traefik.http.services.lifnei-hakalpi.loadbalancer.server.port=8080
+    # networks:
+    #   - dokploy-network
+# networks:
+#   dokploy-network:
+#     external: true
