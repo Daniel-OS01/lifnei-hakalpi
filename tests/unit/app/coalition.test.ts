@@ -201,6 +201,17 @@ describe("v5 test_coal.js port", () => {
     expect(() => save(E.id)).not.toThrow();
   });
 
+  it("6b. stored seats with polls:true are replaced by the current medians", () => {
+    const old = fresh(K, E, PRE); IDS.forEach((id) => { old.seats[id] = K.start[id] === 10 ? 11 : 10; }); old.st.likud = "in";
+    expect(IDS.every((id) => old.seats[id] !== K.start[id])).toBe(true);
+    const a = sanitize(K, E, JSON.parse(JSON.stringify(old)), PRE);
+    expect(IDS.every((id) => a.seats[id] === K.start[id]) && a.polls && a.st.likud === "in").toBe(true);
+    const typed = sanitize(K, E, JSON.parse(JSON.stringify({ ...old, polls: false })), PRE);
+    expect(IDS.every((id) => typed.seats[id] === old.seats[id]) && !typed.polls).toBe(true);
+    const b = sanitize(K, E, JSON.parse(JSON.stringify(old)), BAN);
+    expect(IDS.every((id) => b.seats[id] === 0) && !b.polls).toBe(true);
+  });
+
   it("6a. state is cached per election and read through stateOf(ctx)", () => {
     const s = fresh(K, E, PRE); s.sel = "shas"; setState(E.id, s);
     ok(getState(K, E, PRE) === s && stateOf(ctxAt(PRE)) === s, "setState is what getState and stateOf return");

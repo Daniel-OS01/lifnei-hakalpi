@@ -38,11 +38,13 @@ export function sanitize(K: CoalData, E: Election, o: unknown, now: number): Coa
   if (!o || typeof o !== "object") return s;
   const x = o as { seats?: Record<string, unknown>; st?: Record<string, unknown>; polls?: unknown; pm?: unknown; sel?: unknown };
   const I = ids(K), known = (v: unknown) => typeof v === "string" && I.includes(v);
+  // polls:true means the user never edited the seats: take today's medians (fresh), not ones saved before a data refresh
+  const polls = !!x.polls;
   I.forEach((id) => {
-    if (x.seats && validSeat(E, x.seats[id])) s.seats[id] = x.seats[id] as number;
+    if (!polls && x.seats && validSeat(E, x.seats[id])) s.seats[id] = x.seats[id] as number;
     if (x.st && has(STN, x.st[id])) s.st[id] = x.st[id] as Status;
   });
-  s.polls = !!x.polls;
+  s.polls = polls;
   s.pm = known(x.pm) ? (x.pm as string) : null;
   if (known(x.sel)) s.sel = x.sel as string;
   // no poll numbers as starting values during the ban
