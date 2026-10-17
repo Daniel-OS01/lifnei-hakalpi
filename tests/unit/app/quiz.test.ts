@@ -264,6 +264,22 @@ describe("render", () => {
 
 /* ---------- state and handlers ---------- */
 describe("state", () => {
+  it("a stored state of the wrong shape loads as a usable state and home renders", () => {
+    const store: Record<string, string> = {};
+    (globalThis as any).localStorage = { getItem: (k: string) => store[k] ?? null, setItem: (k: string, v: string) => { store[k] = v; } };
+    try {
+      ["{}", '{"ans":null}', "not json"].forEach((raw, i) => {
+        const id = "bad-state-" + i, c: Ctx = { ...ctx, site: { ...site, election: { ...site.election, id } } };
+        store[stateKey(id)] = raw;
+        let h = "";
+        expect(() => { h = V.home(c); }, raw).not.toThrow();
+        expect(h).toContain('id="h-home"');
+        expect(getState(id)).toEqual(fresh());
+      });
+      store[stateKey("partial")] = JSON.stringify({ mode: "long", step: 3, ans: { core: 1 }, imp: [], top: "x", done: "yes", basis: "all" });
+      expect(load("partial")).toEqual({ ...fresh("long"), step: 3, ans: { core: 1 } });
+    } finally { delete (globalThis as any).localStorage; }
+  });
   it("key, load and save are guarded and use the configured prefix", () => {
     expect(stateKey(ID)).toBe("lifnei-hakalpi-2026-knesset-26-quiz-v2");
     expect(load(ID)).toBeNull();   // no localStorage in node: guarded
