@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "content-reflect.schema.json",
+  "title": "Self-check topics shown in the full quiz (content/reflect.json)",
+  "description": "Topics with no systematic comparison across lists. They are not scored; the user marks their importance and they are listed in the results. Text fields are escaped on render.",
+  "type": "object",
+  "required": ["items"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "t", "q"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$", "description": "Stable key; stored in the saved quiz state" },
+          "t": { "type": "string", "minLength": 1, "description": "Topic title" },
+          "q": { "type": "string", "minLength": 1, "description": "One line on what the topic covers" }
+        }
+      }
+    }
+  }
+}
