@@ -245,6 +245,21 @@ describe("render", () => {
     fixed();
     expect(clean(summaryText(ctx)).split("\n").length).toBe(7);
   });
+
+  it("during the poll ban, results with poll threshold tags carry the ban notice and the stale label", () => {
+    const P = site.content.pages.parties, banCtx: Ctx = { ...ctx, now: Date.parse("2026-10-25T12:00:00+03:00") };
+    expect(D.parties.some((p) => p.th === "below")).toBe(true);
+    fixed();
+    const hb = clean(V.results(banCtx));
+    expect(hb).toContain('<div class="banner" role="note"><b>תקופת איסור פרסום סקרים.</b>');
+    expect(hb).toContain("בסקרים מתחת לאחוז החסימה" + P.seatsBanSuffix + "</span>");
+    expect(hb).toContain("בסקרים סביב אחוז החסימה" + P.seatsBanSuffix + "</span>");
+    expect(hb).not.toMatch(/החסימה<\/span>/);
+    const h = V.results(ctx);
+    expect(h).not.toContain('class="banner"');
+    expect(h).not.toContain(P.seatsBanSuffix);
+    expect(h).toContain("בסקרים מתחת לאחוז החסימה</span>");
+  });
 });
 
 /* ---------- state and handlers ---------- */
