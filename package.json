@@ -19,7 +19,8 @@
     "test:e2e": "playwright test",
     "check": "tsx scripts/check-dashes.ts && tsx scripts/check-election-agnostic.ts && tsx scripts/validate-data.ts",
     "mutate": "tsx scripts/mutate.ts",
-    "linkcheck": "tsx scripts/link-check.ts"
+    "linkcheck": "tsx scripts/link-check.ts",
+    "parity-report": "tsx scripts/parity-report.ts"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",
