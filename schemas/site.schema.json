@@ -1,0 +1,1394 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lifnei-hakalpi.local/schemas/site.schema.json",
+  "title": "public/data/elections/<id>/site.json (generated)",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "build": {
+      "type": "object",
+      "properties": {
+        "builtAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "siteVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "snapshot": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "sourceBuiltAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "date",
+            "sha256",
+            "sourceBuiltAt"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "builtAt",
+        "siteVersion",
+        "snapshot"
+      ],
+      "additionalProperties": false
+    },
+    "election": {
+      "$ref": "https://lifnei-hakalpi.local/schemas/election.schema.json"
+    },
+    "quiz": {
+      "type": "object",
+      "properties": {
+        "base": {
+          "type": "string",
+          "pattern": "^https?://\\S+$"
+        },
+        "asof": {
+          "type": "string"
+        },
+        "srcBuilt": {
+          "type": "string",
+          "format": "date"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "cat": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "title": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "label": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "stmt": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "issue": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9-]*$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "sourceQuestionId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "cat",
+              "title",
+              "label",
+              "stmt"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "short": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "parties": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "n": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "l": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "letters": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "th": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "near",
+                      "below"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "cand": {
+                "type": "string",
+                "pattern": "^https?://\\S+$"
+              },
+              "site": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^https?://\\S+$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "top": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+                }
+              },
+              "seats": {
+                "type": "object",
+                "properties": {
+                  "median": {
+                    "type": "number"
+                  },
+                  "low": {
+                    "type": "number"
+                  },
+                  "high": {
+                    "type": "number"
+                  },
+                  "n": {
+                    "type": "number"
+                  },
+                  "from": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "to": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                },
+                "required": [
+                  "median",
+                  "low",
+                  "high",
+                  "n",
+                  "from",
+                  "to"
+                ],
+                "additionalProperties": false
+              },
+              "below": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "conduct": {
+                "type": "object",
+                "properties": {
+                  "total": {
+                    "type": "number"
+                  },
+                  "parts": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "string",
+                          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "minItems": 2,
+                      "maxItems": 2
+                    }
+                  }
+                },
+                "required": [
+                  "total",
+                  "parts"
+                ],
+                "additionalProperties": false
+              },
+              "legal": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "documented": {
+                "type": "number"
+              },
+              "cov": {
+                "type": "object",
+                "properties": {
+                  "leader": {
+                    "enum": [
+                      "done",
+                      "partial",
+                      "no_record"
+                    ]
+                  },
+                  "top10": {
+                    "enum": [
+                      "done",
+                      "partial",
+                      "no_record"
+                    ]
+                  },
+                  "stances": {
+                    "enum": [
+                      "done",
+                      "partial",
+                      "no_record"
+                    ]
+                  },
+                  "conduct": {
+                    "enum": [
+                      "done",
+                      "partial",
+                      "no_record"
+                    ]
+                  },
+                  "body": {
+                    "enum": [
+                      "done",
+                      "partial",
+                      "no_record"
+                    ]
+                  },
+                  "platform": {
+                    "enum": [
+                      "done",
+                      "partial",
+                      "no_record"
+                    ]
+                  }
+                },
+                "required": [
+                  "leader",
+                  "top10",
+                  "stances",
+                  "conduct",
+                  "body",
+                  "platform"
+                ],
+                "additionalProperties": false
+              },
+              "pl": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^https?://\\S+$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "pt": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "src": {
+                "type": "string",
+                "pattern": "^https?://\\S+$"
+              }
+            },
+            "required": [
+              "id",
+              "n",
+              "l",
+              "letters",
+              "th",
+              "cand",
+              "site",
+              "top",
+              "seats",
+              "below",
+              "conduct",
+              "legal",
+              "documented",
+              "cov",
+              "pl",
+              "pt"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "cells": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/quizCell"
+            }
+          }
+        },
+        "cats": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "t": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "a": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "b": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "t",
+              "a",
+              "b"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "base",
+        "asof",
+        "srcBuilt",
+        "questions",
+        "short",
+        "parties",
+        "cells",
+        "cats"
+      ],
+      "additionalProperties": false
+    },
+    "coalition": {
+      "type": "object",
+      "properties": {
+        "asof": {
+          "type": "string"
+        },
+        "srcBuilt": {
+          "type": "string",
+          "format": "date"
+        },
+        "srcVer": {
+          "type": "string"
+        },
+        "srcSha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "base": {
+          "type": "string",
+          "pattern": "^https?://\\S+$"
+        },
+        "issue": {
+          "type": "string",
+          "pattern": "^https?://\\S+$"
+        },
+        "polls": {
+          "type": "string",
+          "pattern": "^https?://\\S+$"
+        },
+        "ban": {
+          "type": "object",
+          "properties": {
+            "f": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "u": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "f",
+            "u"
+          ],
+          "additionalProperties": false
+        },
+        "lists": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "n": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "sn": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "l": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "lead": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "cp": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+                }
+              },
+              "k25": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "med": {
+                "type": "number"
+              },
+              "lo": {
+                "type": "number"
+              },
+              "hi": {
+                "type": "number"
+              },
+              "pn": {
+                "type": "number"
+              },
+              "pf": {
+                "type": "string",
+                "format": "date"
+              },
+              "pt": {
+                "type": "string",
+                "format": "date"
+              },
+              "outlets": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "bt": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "outlet": {
+                      "type": "string",
+                      "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+                    },
+                    "at": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "pct": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "outlet",
+                    "at",
+                    "pct"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "gov": {
+                "$ref": "#/$defs/ts"
+              },
+              "cond": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ts"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "nu": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ts"
+                }
+              },
+              "gaps": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Z]+$"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "n",
+              "sn",
+              "l",
+              "lead",
+              "cp",
+              "k25",
+              "med",
+              "lo",
+              "hi",
+              "pn",
+              "pf",
+              "pt",
+              "outlets",
+              "bt",
+              "gov",
+              "cond",
+              "nu",
+              "gaps"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "start": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "cells": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/cell"
+          }
+        },
+        "pm": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pm"
+          }
+        },
+        "out": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "lv": {
+                "$ref": "#/$defs/level"
+              },
+              "t": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "s": {
+                "$ref": "#/$defs/srcs"
+              },
+              "v": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "c": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "im": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "lv",
+              "t",
+              "s",
+              "v",
+              "c",
+              "im"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "arab": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          }
+        },
+        "qt": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[A-Z]+$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+          }
+        },
+        "cq": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "propertyNames": {
+              "pattern": "^[A-Z]+$"
+            },
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "s": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "sc": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "sr": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "si": {
+                  "type": "boolean"
+                },
+                "sch": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "su": {
+                  "type": "string"
+                },
+                "a": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "ac": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "ar": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "au": {
+                  "type": "string"
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            }
+          }
+        },
+        "surplus": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "a": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "b": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "d": {
+                "type": "string",
+                "format": "date"
+              },
+              "s": {
+                "$ref": "#/$defs/srcs"
+              }
+            },
+            "required": [
+              "a",
+              "b",
+              "d",
+              "s"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "surplusNone": {
+          "type": "object",
+          "properties": {
+            "lists": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              }
+            },
+            "t": {
+              "type": "string",
+              "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+            },
+            "s": {
+              "$ref": "#/$defs/srcs"
+            },
+            "d": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          "required": [
+            "lists",
+            "t",
+            "s"
+          ],
+          "additionalProperties": false
+        },
+        "scen": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "t": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "lists": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9-]*$"
+                }
+              },
+              "pm": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9-]*$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "why": {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              "srcRule": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "pmHead": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9][a-z0-9-]*$"
+                      },
+                      "lv": {
+                        "$ref": "#/$defs/level"
+                      }
+                    },
+                    "required": [
+                      "pmHead",
+                      "lv"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "cell": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^[a-z0-9][a-z0-9-]*$"
+                        },
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "cell"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "t",
+              "lists",
+              "pm",
+              "why"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "asof",
+        "srcBuilt",
+        "srcVer",
+        "srcSha",
+        "base",
+        "issue",
+        "polls",
+        "ban",
+        "lists",
+        "start",
+        "cells",
+        "pm",
+        "out",
+        "arab",
+        "qt",
+        "cq",
+        "surplus",
+        "surplusNone",
+        "scen"
+      ],
+      "additionalProperties": false
+    },
+    "content": {
+      "type": "object",
+      "properties": {
+        "changelog": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "version": {
+                "type": "string",
+                "pattern": "^\\d+\\.\\d+\\.\\d+$"
+              },
+              "date": {
+                "type": "string",
+                "format": "date"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+                }
+              }
+            },
+            "required": [
+              "version",
+              "date",
+              "items"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "changelog"
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "build",
+    "election",
+    "quiz",
+    "coalition",
+    "content"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "level": {
+      "enum": [
+        "X",
+        "C",
+        "N",
+        "O",
+        "P"
+      ]
+    },
+    "src": {
+      "type": "object",
+      "properties": {
+        "e": {
+          "type": "string",
+          "pattern": "^https?://\\S+$"
+        },
+        "u": {
+          "type": "string",
+          "pattern": "^https?://\\S+$"
+        },
+        "o": {
+          "type": "string",
+          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+        },
+        "x": {
+          "const": 1
+        }
+      },
+      "required": [
+        "o"
+      ],
+      "additionalProperties": false
+    },
+    "srcs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/src"
+      }
+    },
+    "cond": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/condText"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "condText": {
+      "type": "string",
+      "minLength": 1,
+      "allOf": [
+        {
+          "pattern": "\\S"
+        },
+        {
+          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+        }
+      ]
+    },
+    "condRule": {
+      "type": "object",
+      "if": {
+        "type": "object",
+        "properties": {
+          "lv": {
+            "const": "C"
+          }
+        },
+        "required": [
+          "lv"
+        ]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "cond": {
+            "$ref": "#/$defs/condText"
+          }
+        },
+        "required": [
+          "cond"
+        ]
+      }
+    },
+    "dbv": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "q": {
+              "type": "string",
+              "pattern": "^[A-Z]+$"
+            },
+            "v": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "c": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "im": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "q",
+            "v",
+            "c",
+            "im"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stage": {
+      "type": "object",
+      "properties": {
+        "lv": {
+          "$ref": "#/$defs/level"
+        },
+        "d": {
+          "type": "string",
+          "format": "date"
+        },
+        "t": {
+          "type": "string",
+          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+        },
+        "cond": {
+          "$ref": "#/$defs/cond"
+        },
+        "s": {
+          "$ref": "#/$defs/srcs"
+        }
+      },
+      "required": [
+        "lv",
+        "d",
+        "t",
+        "cond",
+        "s"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/condRule"
+        }
+      ]
+    },
+    "ts": {
+      "type": "object",
+      "properties": {
+        "t": {
+          "type": "string",
+          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+        },
+        "s": {
+          "$ref": "#/$defs/srcs"
+        }
+      },
+      "required": [
+        "t",
+        "s"
+      ],
+      "additionalProperties": false
+    },
+    "cell": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "b": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "lv": {
+          "$ref": "#/$defs/level"
+        },
+        "d": {
+          "type": "string",
+          "format": "date"
+        },
+        "t": {
+          "type": "string",
+          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+        },
+        "cond": {
+          "$ref": "#/$defs/cond"
+        },
+        "s": {
+          "$ref": "#/$defs/srcs"
+        },
+        "db": {
+          "$ref": "#/$defs/dbv"
+        },
+        "rep": {
+          "type": "boolean"
+        },
+        "st": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stage"
+          }
+        },
+        "gen": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "a",
+        "b",
+        "lv",
+        "d",
+        "t",
+        "cond",
+        "s",
+        "db",
+        "rep",
+        "st",
+        "gen"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/condRule"
+        }
+      ]
+    },
+    "pm": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "h": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "lv": {
+          "$ref": "#/$defs/level"
+        },
+        "d": {
+          "type": "string",
+          "format": "date"
+        },
+        "t": {
+          "type": "string",
+          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+        },
+        "cond": {
+          "$ref": "#/$defs/cond"
+        },
+        "s": {
+          "$ref": "#/$defs/srcs"
+        },
+        "db": {
+          "$ref": "#/$defs/dbv"
+        },
+        "rep": {
+          "type": "boolean"
+        },
+        "st": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stage"
+          }
+        }
+      },
+      "required": [
+        "a",
+        "h",
+        "lv",
+        "d",
+        "t",
+        "cond",
+        "s",
+        "db",
+        "rep",
+        "st"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/condRule"
+        }
+      ]
+    },
+    "quizCell": {
+      "type": "object",
+      "properties": {
+        "s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "a": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sl": {
+          "const": 1
+        },
+        "al": {
+          "const": 1
+        },
+        "si": {
+          "const": 1
+        },
+        "ai": {
+          "const": 1
+        },
+        "sx": {
+          "type": "string"
+        },
+        "ax": {
+          "type": "string"
+        },
+        "g": {
+          "const": 1
+        },
+        "su": {
+          "type": "string"
+        },
+        "au": {
+          "type": "string"
+        },
+        "sd": {
+          "type": "string"
+        },
+        "ad": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "s",
+        "a",
+        "su",
+        "au"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

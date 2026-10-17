@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lifnei-hakalpi.local/schemas/content-questions.schema.json",
+  "title": "content/questions.json",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "note": {
+      "type": "string",
+      "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+    },
+    "cats": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "t": {
+            "type": "string",
+            "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+          },
+          "a": {
+            "type": "string",
+            "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+          },
+          "b": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "t",
+          "a",
+          "b"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "cat": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "title": {
+            "type": "string",
+            "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+          },
+          "label": {
+            "type": "string",
+            "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+          },
+          "stmt": {
+            "type": "string",
+            "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+          },
+          "sourceQuestionId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "issue": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "cat",
+          "title",
+          "label",
+          "stmt",
+          "sourceQuestionId",
+          "issue"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "short": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "cats",
+    "questions",
+    "short"
+  ],
+  "additionalProperties": false
+}

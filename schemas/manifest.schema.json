@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lifnei-hakalpi.local/schemas/manifest.schema.json",
+  "title": "sources/snapshots/<date>/manifest.json",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "method": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fetchedAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "string",
+          "format": "date-time"
+        }
+      ]
+    },
+    "sourceBuiltAt": {
+      "anyOf": [
+        {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            }
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sourceVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "note": {
+      "type": "string",
+      "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+    },
+    "files": {
+      "type": "object",
+      "minProperties": 1,
+      "properties": {
+        "data.json": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "propertyNames": {
+        "pattern": "^[^/\\\\][^\\\\]*$"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "required": [
+        "data.json"
+      ]
+    },
+    "evidenceHtmlSha256": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "date",
+    "method",
+    "fetchedAt",
+    "files",
+    "evidenceHtmlSha256"
+  ],
+  "additionalProperties": false
+}

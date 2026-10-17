@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lifnei-hakalpi.local/schemas/coalition-out.schema.json",
+  "title": "coalition/out.json: outside support, no date field",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "arab": {
+      "type": "array",
+      "items": {
+        "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/listId"
+      }
+    },
+    "out": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "lv": {
+            "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/level"
+          },
+          "t": {
+            "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/text"
+          },
+          "src": {
+            "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/sources"
+          },
+          "db": {
+            "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/db"
+          }
+        },
+        "required": [
+          "lv",
+          "t",
+          "src"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "arab",
+    "out"
+  ],
+  "additionalProperties": false
+}
