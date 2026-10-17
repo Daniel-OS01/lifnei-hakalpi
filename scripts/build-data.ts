@@ -41,6 +41,9 @@ export function buildElection(root: string, id: string, siteVersion: string, now
   const election = readJson(join(E, "election.json"));
   if (!election.snapshot) fail(`${id}: election.json has no active snapshot`);
   const snap = loadSnapshot(join(E, "sources/snapshots", election.snapshot));
+  // The manifest sits next to the files it checks; election.json pins data.json, so an edited snapshot with a regenerated manifest is refused.
+  if (snap.dataSha !== election.snapshotSha256)
+    fail(`snapshot hash does not match election.json snapshotSha256 (election.json ${election.snapshotSha256}, data.json ${snap.dataSha})`);
   const ev = claimIndex(snap.data, snap.evidence);
   const content = buildContent(root, id);
   if (!content.questions) fail(`${id}: content/questions.json is required`);
@@ -49,7 +52,7 @@ export function buildElection(root: string, id: string, siteVersion: string, now
   for (const [name, p] of Object.entries(readDir(join(E, "coalition"), ".json"))) coal[name] = readJson(p);
   for (const k of ["cells", "pm", "out", "lists", "surplus", "scenarios", "meta"]) if (!coal[k]) fail(`${id}: coalition/${k}.json is required`);
   const site = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     build: { builtAt: now.toISOString(), siteVersion, snapshot: { date: election.snapshot, sha256: snap.dataSha, sourceBuiltAt: snap.data.builtAt } },
     election,
     quiz: buildQuiz(snap, content.questions, content.lists, election.source.baseUrl + "parties/", ev),

@@ -32,7 +32,7 @@ function makeRoot(): string {
   mkdirSync(join(root, "data/elections", ID), { recursive: true });
   writeFileSync(
     join(root, "data/elections", ID, "election.json"),
-    `{\n  "id": "${ID}",\n  "timezone": "Asia/Jerusalem",\n  "source": {\n    "baseUrl": "${base}",\n    "dataUrl": "${base}data.json",\n    "evidencePath": "parties/{id}-evidence.html"\n  },\n  "snapshot": "2026-10-01"\n}\n`,
+    `{\n  "id": "${ID}",\n  "timezone": "Asia/Jerusalem",\n  "source": {\n    "baseUrl": "${base}",\n    "dataUrl": "${base}data.json",\n    "evidencePath": "parties/{id}-evidence.html"\n  },\n  "snapshot": "2026-10-01",\n  "snapshotSha256": "${"0".repeat(64)}"\n}\n`,
   );
   return root;
 }
@@ -83,12 +83,16 @@ describe("fetch-source, download mode", () => {
     expect(readFileSync(join(root, "data/elections", ID, "election.json"), "utf8")).toContain('"snapshot": "2026-10-01"');
   });
 
-  it("--activate writes the new date into election.json and nothing else", async () => {
+  it("--activate writes the new date and its data.json SHA-256 into election.json and nothing else", async () => {
     const root = makeRoot();
     const file = join(root, "data/elections", ID, "election.json");
     const before = readFileSync(file, "utf8");
     await fetchSource(root, { election: ID, date: "2026-10-20", activate: true });
-    expect(readFileSync(file, "utf8")).toBe(before.replace('"snapshot": "2026-10-01"', '"snapshot": "2026-10-20"'));
+    const sha = sha256(readFileSync(join(snapDir(root, "2026-10-20"), "data.json")));
+    expect(sha).toBe(sha256(DATA));
+    expect(readFileSync(file, "utf8")).toBe(
+      before.replace('"snapshot": "2026-10-01"', '"snapshot": "2026-10-20"').replace(`"snapshotSha256": "${"0".repeat(64)}"`, `"snapshotSha256": "${sha}"`),
+    );
   });
 
   it("two downloads of the same pages give identical bytes, and an existing snapshot is not overwritten", async () => {

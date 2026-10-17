@@ -4,7 +4,7 @@ import { spawnSync } from "node:child_process";
 import { join } from "node:path";
 import { afterAll, describe, expect, it } from "vitest";
 import { buildElection } from "../../../scripts/build-data.ts";
-import { assessments, COAL_Q, coalDb, conductCounts, encodeCell } from "../../../scripts/lib/pipeline.ts";
+import { assessments, COAL_Q, coalDb, conductCounts, encodeCell, loadSnapshot, sha256 } from "../../../scripts/lib/pipeline.ts";
 import { validateAgainst } from "../../../scripts/validate-data.ts";
 import { built, E, G16, json, REPO } from "./helpers.ts";
 
@@ -63,6 +63,25 @@ describe("hash refusal", () => {
     const r = cli(root);
     expect(r.status).toBe(1);
     expect(r.stderr).toContain(`build-data failed: ${msg}`);
+  });
+
+  it("an edited data.json with a regenerated manifest is refused against election.json snapshotSha256 (throw and CLI exit 1)", () => {
+    const root = copyTree();
+    const p = join(root, SNAP, "data.json");
+    const buf = readFileSync(p);
+    const i = buf.indexOf('"builtAt":"') + '"builtAt":"'.length;
+    buf[i] = buf[i] === 0x39 ? 0x38 : buf[i] + 1;
+    writeFileSync(p, buf);
+    const mp = join(root, SNAP, "manifest.json");
+    const manifest = json(mp);
+    manifest.files["data.json"] = sha256(buf);
+    writeFileSync(mp, JSON.stringify(manifest, null, 1) + "\n");
+    expect(loadSnapshot(join(root, SNAP)).dataSha).toBe(sha256(buf)); // the manifest alone accepts the edit
+    const msg = /^snapshot hash does not match election\.json snapshotSha256 \(election\.json [0-9a-f]{64}, data\.json [0-9a-f]{64}\)$/;
+    expect(build(root)).toThrow(msg);
+    const r = cli(root);
+    expect(r.status).toBe(1);
+    expect(r.stderr).toContain("build-data failed: snapshot hash does not match election.json snapshotSha256");
   });
 });
 

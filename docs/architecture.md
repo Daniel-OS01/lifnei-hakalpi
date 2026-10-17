@@ -34,11 +34,11 @@ dist/  →  nginx in Docker  →  Dokploy
 
 ## The site-data contract (`site.json`)
 
-`schemaVersion` 1. Produced only by `scripts/build-data.ts`, validated against `schemas/site.schema.json`.
+`schemaVersion` 2. Produced only by `scripts/build-data.ts`, validated against `schemas/site.schema.json`.
 
 ```ts
 interface SiteData {
-  schemaVersion: 1;
+  schemaVersion: 2;
   build: { builtAt: string; siteVersion: string; snapshot: { date: string; sha256: string; sourceBuiltAt: string } };
   election: Election;            // election.json as is
   quiz: QuizData;                // see below
@@ -54,7 +54,7 @@ interface SiteData {
 
 `QuizData` keeps the v5 shape: `{ base, asof, srcBuilt, questions[], short[], parties[], cells{pid: Cell[21]}, cats{} }`. A `Cell` is `{ s, a, sl?, al?, si?, ai?, sx?, ax?, g?, su, au, sd?, ad? }` exactly as documented at the top of the v5 `build_data.py`.
 
-`CoalitionData` keeps the v5 `coal.json` shape: `{ asof, srcBuilt, srcVer, srcSha, base, issue, polls, ban, lists[], start{}, cells[], pm[], out{}, arab[], qt{}, cq{}, surplus[], surplusNone, scen[] }`.
+`CoalitionData` keeps the v5 `coal.json` shape: `{ asof, srcBuilt, srcVer, srcSha, base, issue, polls, ban, lists[], start{}, cells[], pm[], out{}, arab[], qt{}, cq{}, surplus[], surplusNone, scen[] }`, except that `lists[].prevFaction` (the faction in the outgoing Knesset) was called `k25` in v5.
 
 Keeping both shapes lets the app port stay line-for-line comparable with v5, which is what makes the parity check meaningful.
 

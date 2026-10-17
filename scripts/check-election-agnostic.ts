@@ -1,5 +1,7 @@
-/* Fails when app code names an election: dates, the threshold, the source domain, a Knesset number phrase or a list id.
-   Usage: npx tsx scripts/check-election-agnostic.ts [dir]   (default: src) */
+/* Fails when app code names an election: dates, the threshold, the source domain, a Knesset number phrase, a
+   Knesset-numbered source field name (knesset25_...) or a list id. The pipeline core (scripts/lib) is scanned
+   for the field name only: its v5 port checks name lists on purpose, but a field it reads must come from election.json.
+   Usage: npx tsx scripts/check-election-agnostic.ts [dir]   (default: src with every rule, scripts/lib with the field rule) */
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, relative } from "node:path";
 
@@ -23,8 +25,12 @@ function walk(dir: string): string[] {
   return readdirSync(dir).flatMap((n) => { const p = join(dir, n); return statSync(p).isDirectory() ? walk(p) : [p]; });
 }
 
-export function scan(dir: string, ids: string[]): string[] {
-  const rules: [string, RegExp][] = [
+const FIELD_RULE: [string, RegExp] = ["Knesset-numbered field name", /knesset\d{2}_/i];
+
+/** fieldsOnly: apply only the Knesset-numbered field name rule (used for scripts/lib). */
+export function scan(dir: string, ids: string[], fieldsOnly = false): string[] {
+  const rules: [string, RegExp][] = fieldsOnly ? [FIELD_RULE] : [
+    FIELD_RULE,
     ["ISO date", /\b\d{4}-\d{2}-\d{2}\b/],
     ["d.m.yyyy date", /\b\d{1,2}\.\d{1,2}\.\d{4}\b/],
     ["threshold", /3\.25/],
@@ -42,7 +48,8 @@ export function scan(dir: string, ids: string[]): string[] {
 }
 
 if (process.argv[1] && process.argv[1].endsWith("check-election-agnostic.ts")) {
-  const hits = scan(process.argv[2] || "src", partyIds());
+  const ids = partyIds();
+  const hits = process.argv[2] ? scan(process.argv[2], ids) : [...scan("src", ids), ...scan("scripts/lib", ids, true)];
   hits.forEach((h) => console.log(h));
   if (hits.length) { console.error(hits.length + " election-specific value(s) in app code"); process.exit(1); }
   console.log("check-election-agnostic: clean");

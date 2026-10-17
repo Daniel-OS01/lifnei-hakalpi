@@ -35,7 +35,7 @@ export interface Src { u?: string; e?: string; o?: string; x?: 1 }
 export interface Stage { lv: Level; d: string; t: string; cond?: string | null; s: Src[] }
 export interface Statement { a: string; b?: string; h?: string; lv: Level; d: string; t: string; cond?: string | null; s: Src[]; db?: { q: string; v: number | null; c?: string | null; im?: boolean } | null; gen?: boolean; rep?: boolean; st: Stage[] }
 export interface CoalList {
-  id: string; n: string; sn: string; l: string; lead: string; cp: string[]; k25: string[] | null;
+  id: string; n: string; sn: string; l: string; lead: string; cp: string[]; prevFaction: string[] | null;
   med: number; lo: number; hi: number; pn: number; pf: string; pt: string; outlets: string; bt: unknown[];
   gov: { t: string; s: Src[] }; cond: { t: string; s: Src[] } | null; nu: { t: string; s: Src[] }[]; gaps: string[];
 }
@@ -54,7 +54,7 @@ export interface ChangelogEntry { version: string; date: string; items: string[]
 export type Content = Record<string, any> & { changelog: ChangelogEntry[] };
 
 export interface SiteData {
-  schemaVersion: 1;
+  schemaVersion: 2;
   build: { builtAt: string; siteVersion: string; snapshot: { date: string; sha256: string; sourceBuiltAt: string } };
   election: Election; quiz: QuizData; coalition: CoalData; content: Content;
 }

@@ -11,12 +11,20 @@ const H = {
   "claims.json": "ebda84bf116617091c82e3c37a676e6673d9bb0a81705926c2b4dd33e395879a",
 };
 
+/** Our metaChunk with the faction key renamed, in place, to the golden file's v5 name k25. */
+const asGolden = (rows: Record<string, unknown>[]) =>
+  rows.map((r) => Object.fromEntries(Object.entries(r).map(([k, v]) => [k === "prevFaction" ? "k25" : k, v])));
+const prevField = () => built().site.election.source.fields.prevFaction as string;
+
 describe("golden 17.10 browser chunks", () => {
   it("golden files carry the verified hashes", () => {
     for (const [f, h] of Object.entries(H)) expect(sha256Trim(readFileSync(join(G17, f), "utf8"))).toBe(h);
   });
   it("meta.json is reproduced byte for byte", () => {
-    expect(sha256Trim(JSON.stringify(metaChunk(built().snap.data)))).toBe(H["meta.json"]);
+    expect(sha256Trim(JSON.stringify(asGolden(metaChunk(built().snap.data, prevField()))))).toBe(H["meta.json"]);
+  });
+  it("metaChunk refuses a source.fields.prevFaction that the parties do not have", () => {
+    expect(() => metaChunk(built().snap.data, "no_such_field")).toThrow(/has no field no_such_field \(election\.json source\.fields\.prevFaction\)$/);
   });
   it("coal.txt is reproduced byte for byte", () => {
     expect(sha256Trim(coalChunk(built().snap.data))).toBe(H["coal.txt"]);

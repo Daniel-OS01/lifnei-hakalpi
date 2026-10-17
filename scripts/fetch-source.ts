@@ -8,7 +8,7 @@
 //
 // The snapshot is written to a temporary folder next to its final place, verified with the same
 // loadSnapshot that build-data uses, and only then renamed into place. An existing snapshot is never
-// overwritten. --activate writes the new date into election.json "snapshot".
+// overwritten. --activate writes the new date into election.json "snapshot" and its data.json SHA-256 into "snapshotSha256".
 // Data root defaults to the repository; LH_DATA_ROOT points it at another tree (used by tests).
 import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -119,13 +119,16 @@ function writeSnapshot(dir: string, raw: Buffer, pages: Record<string, Buffer>, 
   return dir;
 }
 
-/** Replace the "snapshot" value in election.json in place, keeping the rest of the file byte for byte. */
-export function activate(electionFile: string, date: string): void {
-  const text = readFileSync(electionFile, "utf8");
-  const re = /("snapshot"\s*:\s*)"[^"]*"/g;
-  const hits = text.match(re)?.length ?? 0;
-  if (hits !== 1) fail(`${electionFile}: expected one "snapshot" field, found ${hits}`);
-  writeFileSync(electionFile, text.replace(re, `$1"${date}"`));
+/** Replace the "snapshot" and "snapshotSha256" values in election.json in place, keeping the rest of the file byte for byte. */
+export function activate(electionFile: string, date: string, dataSha: string): void {
+  let text = readFileSync(electionFile, "utf8");
+  for (const [field, value] of [["snapshot", date], ["snapshotSha256", dataSha]]) {
+    const re = new RegExp(`("${field}"\\s*:\\s*)"[^"]*"`, "g");
+    const hits = text.match(re)?.length ?? 0;
+    if (hits !== 1) fail(`${electionFile}: expected one "${field}" field, found ${hits}`);
+    text = text.replace(re, `$1"${value}"`);
+  }
+  writeFileSync(electionFile, text);
 }
 
 export async function fetchSource(root: string, opts: FetchOptions): Promise<{ dir: string; date: string; method: string }> {
@@ -167,7 +170,7 @@ export async function fetchSource(root: string, opts: FetchOptions): Promise<{ d
     note = `Downloaded by scripts/fetch-source.ts from ${S.dataUrl} and ${S.baseUrl}${S.evidencePath}.`;
   }
   writeSnapshot(dir, raw, pages, method, now, note);
-  if (opts.activate) activate(electionFile, date);
+  if (opts.activate) activate(electionFile, date, sha256(raw));
   return { dir, date, method };
 }
 
