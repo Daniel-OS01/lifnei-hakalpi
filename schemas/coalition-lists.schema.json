@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lifnei-hakalpi.local/schemas/coalition-lists.schema.json",
+  "title": "coalition/lists.json",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "gov": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "t": {
+            "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/text"
+          },
+          "src": {
+            "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/sources"
+          }
+        },
+        "required": [
+          "t",
+          "src"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "cond": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "t": {
+            "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/text"
+          },
+          "src": {
+            "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/sources"
+          }
+        },
+        "required": [
+          "t",
+          "src"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "nuance": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "t": {
+              "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/text"
+            },
+            "src": {
+              "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/sources"
+            }
+          },
+          "required": [
+            "t",
+            "src"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "gov",
+    "cond",
+    "nuance"
+  ],
+  "additionalProperties": false
+}

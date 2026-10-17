@@ -1,0 +1,66 @@
+{
+ "$schema": "../../../../schemas/coalition-surplus.schema.json",
+ "schemaVersion": 1,
+ "surplus": [
+  {
+   "a": "likud",
+   "b": "religious-zionism",
+   "d": "2026-09-08",
+   "src": [
+    "likud-claim-surplus-agreement-rz-2026"
+   ]
+  },
+  {
+   "a": "beyahad",
+   "b": "yisrael-beiteinu",
+   "d": "2026-09-10",
+   "src": [
+    "beyahad-claim-surplus-agreement-yb-2026"
+   ]
+  },
+  {
+   "a": "yashar",
+   "b": "hademokratim",
+   "d": "2026-09-10",
+   "src": [
+    "yashar-claim-surplus-agreement-hademokratim-2026"
+   ]
+  },
+  {
+   "a": "hadash-taal",
+   "b": "raam",
+   "d": "2026-09-11",
+   "src": [
+    "hadash-claim-surplus-agreement-raam-2026"
+   ]
+  },
+  {
+   "a": "shas",
+   "b": "utj",
+   "d": "2026-10-16",
+   "src": [
+    {
+     "u": "https://ynet.co.il/news/elections2026/article/hjextlj2gl",
+     "o": "ynet",
+     "d": "2026-10-16"
+    }
+   ]
+  }
+ ],
+ "none": {
+  "lists": [
+   "otzma-yehudit",
+   "amcha-israel",
+   "miluimnikim"
+  ],
+  "d": "2026-10-16",
+  "src": [
+   {
+    "u": "https://ynet.co.il/news/elections2026/article/hjextlj2gl",
+    "o": "ynet",
+    "d": "2026-10-16"
+   }
+  ],
+  "t": "לפי ynet (16.10.2026, יום ההגשה), עוצמה יהודית, עמך ישראל והמילואימניקים והכלכלית לא חתמו על הסכם עודפים, \"אלא אם יהיה שינוי של הרגע האחרון\". לכחול לבן ולנעם לא נמצא דיווח."
+ }
+}

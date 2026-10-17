@@ -1,0 +1,297 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json",
+  "title": "coalition/cells.json: pair statements, a about b",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "note": {
+      "type": "string",
+      "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+    },
+    "cells": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/cell"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "cells"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "text": {
+      "type": "string",
+      "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+    },
+    "level": {
+      "enum": [
+        "X",
+        "C",
+        "N",
+        "O",
+        "P"
+      ]
+    },
+    "claimId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*-claim-[A-Za-z0-9._-]+$"
+    },
+    "source": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/claimId"
+        },
+        {
+          "const": "issues/coalition-lines.html"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "u": {
+              "type": "string",
+              "format": "uri"
+            },
+            "o": {
+              "type": "string",
+              "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+            },
+            "d": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          "required": [
+            "u",
+            "o",
+            "d"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      },
+      "minItems": 1
+    },
+    "db": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "string",
+          "pattern": "^[A-Z]+$"
+        },
+        {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": -2,
+          "maximum": 2
+        }
+      ],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "cond": {
+      "type": "string",
+      "minLength": 1,
+      "allOf": [
+        {
+          "pattern": "\\S"
+        },
+        {
+          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+        }
+      ]
+    },
+    "condRule": {
+      "type": "object",
+      "if": {
+        "type": "object",
+        "properties": {
+          "lv": {
+            "const": "C"
+          }
+        },
+        "required": [
+          "lv"
+        ]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "cond": {
+            "$ref": "#/$defs/cond"
+          }
+        },
+        "required": [
+          "cond"
+        ]
+      }
+    },
+    "stage": {
+      "type": "object",
+      "properties": {
+        "lv": {
+          "$ref": "#/$defs/level"
+        },
+        "d": {
+          "type": "string",
+          "format": "date"
+        },
+        "t": {
+          "type": "string",
+          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+        },
+        "cond": {
+          "$ref": "#/$defs/cond"
+        },
+        "src": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "lv",
+        "d",
+        "t",
+        "src"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/condRule"
+        }
+      ]
+    },
+    "listId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "cell": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "$ref": "#/$defs/listId"
+        },
+        "b": {
+          "$ref": "#/$defs/listId"
+        },
+        "lv": {
+          "$ref": "#/$defs/level"
+        },
+        "d": {
+          "type": "string",
+          "format": "date"
+        },
+        "t": {
+          "type": "string",
+          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+        },
+        "cond": {
+          "$ref": "#/$defs/cond"
+        },
+        "src": {
+          "$ref": "#/$defs/sources"
+        },
+        "db": {
+          "$ref": "#/$defs/db"
+        },
+        "gen": {
+          "type": "boolean"
+        },
+        "rep": {
+          "type": "boolean"
+        },
+        "st": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stage"
+          }
+        }
+      },
+      "required": [
+        "a",
+        "b",
+        "lv",
+        "d",
+        "t",
+        "src"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/condRule"
+        }
+      ]
+    },
+    "pmStatement": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "$ref": "#/$defs/listId"
+        },
+        "h": {
+          "$ref": "#/$defs/listId"
+        },
+        "lv": {
+          "$ref": "#/$defs/level"
+        },
+        "d": {
+          "type": "string",
+          "format": "date"
+        },
+        "t": {
+          "type": "string",
+          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+        },
+        "cond": {
+          "$ref": "#/$defs/cond"
+        },
+        "src": {
+          "$ref": "#/$defs/sources"
+        },
+        "db": {
+          "$ref": "#/$defs/db"
+        },
+        "gen": {
+          "type": "boolean"
+        },
+        "rep": {
+          "type": "boolean"
+        },
+        "st": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stage"
+          }
+        }
+      },
+      "required": [
+        "a",
+        "h",
+        "lv",
+        "d",
+        "t",
+        "src"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/condRule"
+        }
+      ]
+    }
+  }
+}

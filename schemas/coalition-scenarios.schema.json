@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lifnei-hakalpi.local/schemas/coalition-scenarios.schema.json",
+  "title": "coalition/scenarios.json",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "scen": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "t": {
+            "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/text"
+          },
+          "lists": {
+            "type": "array",
+            "items": {
+              "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/listId"
+            }
+          },
+          "pm": {
+            "anyOf": [
+              {
+                "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/listId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "why": {
+            "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/text"
+          },
+          "srcRule": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "pmHead": {
+                    "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/listId"
+                  },
+                  "lv": {
+                    "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/level"
+                  }
+                },
+                "required": [
+                  "pmHead",
+                  "lv"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "cell": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "https://lifnei-hakalpi.local/schemas/coalition-cells.schema.json#/$defs/listId"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  }
+                },
+                "required": [
+                  "cell"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "t",
+          "lists",
+          "pm",
+          "why",
+          "srcRule"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "scen"
+  ],
+  "additionalProperties": false
+}
