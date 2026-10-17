@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>לפני הקלפי</title>
+</head>
+<body>
+<div class="app" dir="rtl" lang="he">
+  <a class="skiplink" href="#view">דילוג לתוכן</a>
+  <header class="top">
+    <div class="brand"><span class="eyebrow" id="eyebrow"></span><span class="name">לפני הקלפי</span></div>
+    <div class="count" id="countdown"></div>
+  </header>
+  <nav class="tabs" aria-label="ניווט ראשי">
+    <button type="button" data-view="home">השאלון</button>
+    <button type="button" data-view="parties">הרשימות</button>
+    <button type="button" data-view="matrix">טבלת העמדות</button>
+    <button type="button" data-view="coalition">בונים קואליציה</button>
+    <button type="button" data-view="tools">כלים נוספים</button>
+    <button type="button" data-view="decide">איך להחליט</button>
+    <button type="button" data-view="method">שיטה ומקורות</button>
+  </nav>
+  <div id="banner"></div>
+  <main id="view" tabindex="-1"></main>
+  <div class="sr" aria-live="polite" id="live"></div>
+  <footer id="footer"></footer>
+</div>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>
