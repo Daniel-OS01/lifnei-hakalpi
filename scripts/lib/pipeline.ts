@@ -113,7 +113,7 @@ export function claimIndex(data: Any, evidence: Record<string, string>): { index
       const spans = d.querySelector("summary .head")?.querySelectorAll("span") ?? [];
       const a = d.querySelector(".src a");
       let outlet = "";
-      if (a) {
+      if (a?.parentNode) {
         const sibs = a.parentNode.childNodes;
         const next = sibs[sibs.indexOf(a) + 1];
         outlet = next ? next.text.replace(/^[,\s]+/, "").replace(/\s+$/, "") : "";
