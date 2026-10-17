@@ -200,7 +200,7 @@ export function quizOrder(data: Any): string[] {
     .map((p: Any) => p.id);
 }
 
-export function buildQuiz(snap: Snapshot, questions: Any, lists: Any, base: string, ev: { ids: Record<string, Set<string>> }): Any {
+export function buildQuiz(snap: Snapshot, questions: Any, lists: Any, base: string, ev: { index: Record<string, ClaimRow>; ids: Record<string, Set<string>> }): Any {
   const { data } = snap;
   const A = assessments(data);
   const qs: Any[] = questions.questions;
@@ -213,8 +213,12 @@ export function buildQuiz(snap: Snapshot, questions: Any, lists: Any, base: stri
   for (const s of questions.short) check(qs.some((q) => q.id === s), `short set: unknown question ${s}`);
   const order = quizOrder(data);
   const link = (pid: string, a: Any) => {
-    const hit = (a.claim_ids ?? []).find((c: string) => ev.ids[pid].has(c));
-    return hit ? `${pid}-evidence.html#claim-${hit}` : `${pid}.html`;
+    const ids: string[] = a.claim_ids ?? [];
+    const hit = ids.find((c) => ev.ids[pid].has(c));
+    if (hit) return `${pid}-evidence.html#claim-${hit}`;
+    // a claim held on another list's evidence page (as the coalition tab links it), else the party page
+    const other = ids.find((c) => c in ev.index);
+    return other ? `${ev.index[other][0]}-evidence.html#claim-${other}` : `${pid}.html`;
   };
   const cells: Record<string, Any[]> = {};
   for (const pid of order) {
