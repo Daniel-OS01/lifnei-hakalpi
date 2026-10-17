@@ -10,6 +10,7 @@ import type { Api, Ctx, SiteData } from "./types";
 import { esc, fill } from "./lib/html";
 import { daysToElection, afterElection } from "./time";
 import { modules } from "./modules";
+import { getState } from "./quiz";
 import { pageVars } from "./views/shell";
 
 const $ = (id: string) => document.getElementById(id) as HTMLElement;
@@ -42,6 +43,7 @@ function start(site: SiteData): void {
   const views: Record<string, (c: Ctx) => string> = {};
   modules.forEach((m) => Object.assign(views, m.views));
   let current = "home";
+  const quizDone = (): boolean => getState(site.election.id).done;
 
   function show(name: string, keepScroll?: boolean): void {
     current = name;
@@ -74,6 +76,7 @@ function start(site: SiteData): void {
 
   document.querySelector("nav.tabs")!.addEventListener("click", (e) => {
     const b = (e.target as Element).closest<HTMLButtonElement>("button[data-view]"); if (!b) return;
+    if (b.dataset.view === "home" && quizDone()) { show("results"); return; }
     show(b.dataset.view!);
   });
   /* Generic handlers from v5: data-act="go-<view>" navigation and data-toggle disclosure. */
@@ -86,7 +89,8 @@ function start(site: SiteData): void {
   modules.forEach((m) => m.bind?.(view, ctx, api));
 
   const h = (location.hash || "").replace("#", "");
-  show(views[h] && h !== "quiz" ? h : "home");
+  /* v5 start rule: never open mid-quiz; results only when the quiz is done; with no hash, results when done. */
+  show(views[h] && h !== "quiz" ? (h === "results" && !quizDone() ? "home" : h) : (quizDone() ? "results" : "home"));
 }
 
 const id = pickElection();

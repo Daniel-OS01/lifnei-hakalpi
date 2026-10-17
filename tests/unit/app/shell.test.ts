@@ -37,7 +37,9 @@ function v5Views(now: number): Record<string, () => string> {
       escaping, found while writing this test; flagged for review).
    2. method: the section "איך הנתונים הועתקו ונבדקו" sits after "קרבה" in the new output (moved).
    3. footer version: v5 "5.0.0" vs new "5".
-   4. tools: URL escaping differs (&amp; in hrefs). */
+   4. tools: URL escaping differs (&amp; in hrefs).
+   5. method: the changelog list comes from the repo CHANGELOG.md (semver headings, a repo entry for 5.0.0),
+      not from v5's inline list, so the list body is compared separately below. */
 function normalize(name: string, h: string): string {
   let out = h.replace(/5\.0\.0/g, "5");
   if (name === "tools") out = out.replace(/&amp;/g, "&");
@@ -48,7 +50,7 @@ function normalize(name: string, h: string): string {
     const parts = sections(out);
     const ti = parts.findIndex((p) => p.includes(T)), ki = parts.findIndex((p) => p.includes(K));
     if (ti >= 0 && ki >= 0 && ti !== ki + 1) { const [t] = parts.splice(ti, 1); parts.splice(parts.findIndex((p) => p.includes(K)) + 1, 0, t); }
-    out = parts.join("");
+    out = parts.join("").replace(/(<h3>יומן גרסאות<\/h3><ul class="check small">)[\s\S]*?(<\/ul><\/section>)$/, "$1$2");
   }
   return out;
 }
@@ -63,6 +65,13 @@ describe("app shell views", () => {
   it.each(NAMES)("%s matches the v5 output (known differences normalized)", (name) => {
     const v5 = v5Views(NOW)[name]();
     expect(normalize(name, render(name))).toBe(normalize(name, v5));
+  });
+
+  it("method changelog renders every CHANGELOG.md entry, newest first", () => {
+    const h = render("method"), log = site.content.changelog;
+    expect(log.length).toBeGreaterThan(0);
+    const got = [...h.matchAll(/<li><b>גרסה ([^ ]+) \(/g)].map((m) => m[1]);
+    expect(got).toEqual(log.map((e) => e.version));
   });
 
   it("parties view matches v5 inside the ban window too", () => {
