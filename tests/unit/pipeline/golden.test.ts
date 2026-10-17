@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { assessments, coalChunk, encodeCell, metaChunk, partyMeta, sha256Trim } from "../../../scripts/lib/pipeline.ts";
+import { assessments, coalChunk, conductCounts, encodeCell, metaChunk, partyMeta, sha256Trim } from "../../../scripts/lib/pipeline.ts";
 import { built, G16, G17, json } from "./helpers.ts";
 
 // Hashes from the v5 build_coal.py H (computed on the browser side, trailing newlines trimmed).
@@ -57,5 +57,9 @@ describe("re-encoding against out1.json (16.10)", () => {
       expect(Object.keys(m.cc).every((k) => ["falsehood", "conspiracy", "attack"].includes(k))).toBe(true);
       expect(Object.keys(m.cov)).toEqual(Object.keys(out1.M[pid].cov));
     }
+  });
+  it("conduct counts include only events classified as counted", () => {
+    const ev = (classification: string) => ({ subject: { id: "p" }, kind: "attack", classification });
+    expect(conductCounts({ people: [], conductEvents: [ev("counted"), ev("excluded")] }, "p")).toEqual({ attack: 1 });
   });
 });

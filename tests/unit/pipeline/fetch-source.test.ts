@@ -133,6 +133,14 @@ describe("fetch-source, --from a manual browser export", () => {
     expect(Object.keys(snap.evidence)).toEqual(["alpha", "beta"]);
   });
 
+  it("loadSnapshot refuses a snapshot whose file no longer matches its manifest hash", async () => {
+    const { root, dir } = exportDir();
+    await fetchSource(root, { from: dir, date: "2026-10-17" });
+    const snap = snapDir(root, "2026-10-17");
+    writeFileSync(join(snap, "data.json"), DATA.toString() + " ");
+    expect(() => loadSnapshot(snap)).toThrow(/SHA-256 mismatch for data\.json/);
+  });
+
   it("refuses with exit 1 when --sha256 does not match data.json, and writes nothing", () => {
     const { root, dir } = exportDir();
     const wrong = "0".repeat(64);
