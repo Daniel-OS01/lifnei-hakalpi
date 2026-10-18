@@ -16,7 +16,7 @@ afterAll(() => { vi.unstubAllGlobals(); });
 
 /* v5's esc, taken verbatim from the v5 artifact */
 const v5esc = new Function("return " + /function esc\(s\)\{[^\n]*?\}\); \}/.exec(readFileSync("tests/fixtures/artifact-v5.html", "utf8"))![0])();
-const v5src = readFileSync("/home/claude/src/coal.js", "utf8").replace("__COAL__", "__K");
+const v5src = readFileSync("tests/fixtures/v5-coal.js", "utf8").replace("__COAL__", "__K");
 
 function v5At(now: number) {
   const VIEWS: Record<string, () => string> = {};
