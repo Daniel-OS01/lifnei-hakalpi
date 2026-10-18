@@ -38,9 +38,10 @@ Expected: the Content-Security-Policy, `Referrer-Policy: no-referrer`, `X-Conten
 ## Local check
 
 ```
-docker compose up --build
-curl -sI http://localhost:8080/
+scripts/compose-smoke.sh
 ```
+
+The script runs `docker compose up -d --build --wait`, then checks `/healthz`, the page, the current election's `site.json`, `no-cache` on HTML, `immutable` on hashed assets, gzip and the CSP header. CI runs the same script in the `docker` job. Stop the stack with `docker compose down`.
 
 ## Compression
 
