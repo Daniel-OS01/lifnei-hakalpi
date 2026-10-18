@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lifnei-hakalpi.local/schemas/election.schema.json",
+  "title": "data/elections/<id>/election.json",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 3
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "kind": {
+      "type": "string",
+      "minLength": 1
+    },
+    "knessetNumber": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "nameHe": {
+      "type": "string",
+      "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+    },
+    "dateIso": {
+      "type": "string",
+      "format": "date"
+    },
+    "dayHe": {
+      "type": "string",
+      "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+    },
+    "pollsOpen": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "pollsClose": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "timezone": {
+      "type": "string",
+      "minLength": 1
+    },
+    "thresholdPct": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "totalSeats": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "majority": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "minSeatsIfPassed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "pollBan": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "until": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lawRef": {
+          "type": "string",
+          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+        },
+        "lawUrl": {
+          "type": "string",
+          "pattern": "^https?://\\S+$"
+        },
+        "sourceNote": {
+          "type": "string",
+          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+        }
+      },
+      "required": [
+        "from",
+        "until",
+        "lawRef",
+        "lawUrl"
+      ],
+      "additionalProperties": false
+    },
+    "pollingInfo": {
+      "type": "object",
+      "properties": {
+        "lookupUrl": {
+          "type": "string",
+          "pattern": "^https?://\\S+$"
+        },
+        "phones": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "sms": {
+          "type": "string"
+        },
+        "registerClosed": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [
+        "lookupUrl",
+        "phones",
+        "sms",
+        "registerClosed"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "nameHe": {
+          "type": "string",
+          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+        },
+        "author": {
+          "type": "string",
+          "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+        },
+        "baseUrl": {
+          "type": "string",
+          "pattern": "^https?://\\S+$"
+        },
+        "dataUrl": {
+          "type": "string",
+          "pattern": "^https?://\\S+$"
+        },
+        "evidencePath": {
+          "type": "string"
+        },
+        "listPath": {
+          "type": "string"
+        },
+        "pollsPath": {
+          "type": "string"
+        },
+        "issuePath": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "object",
+          "properties": {
+            "prevFaction": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            }
+          },
+          "required": [
+            "prevFaction"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "nameHe",
+        "author",
+        "baseUrl",
+        "dataUrl",
+        "evidencePath",
+        "listPath",
+        "pollsPath",
+        "issuePath",
+        "fields"
+      ],
+      "additionalProperties": false
+    },
+    "snapshot": {
+      "type": "string",
+      "format": "date"
+    },
+    "snapshotSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "listsAllApprovedUrl": {
+      "type": "string",
+      "pattern": "^https?://\\S+$"
+    },
+    "listsAllApprovedCount": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "kind",
+    "knessetNumber",
+    "nameHe",
+    "dateIso",
+    "dayHe",
+    "pollsOpen",
+    "pollsClose",
+    "timezone",
+    "thresholdPct",
+    "totalSeats",
+    "majority",
+    "minSeatsIfPassed",
+    "pollBan",
+    "pollingInfo",
+    "source",
+    "snapshot",
+    "snapshotSha256"
+  ],
+  "additionalProperties": false
+}

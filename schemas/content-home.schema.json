@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lifnei-hakalpi.local/schemas/content-home.schema.json",
+  "title": "Quiz home page texts (content/home.json)",
+  "description": "Texts of the home view that are specific to one election. Strings are trusted HTML fragments inserted as is. Placeholders filled at render: {{lists}}, {{statements}}, {{shortStatements}}, {{values}}, {{reflectTopics}}, plus every electionVars name.",
+  "type": "object",
+  "required": ["intro", "shortDuration", "longDuration", "beforeStart"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "intro": { "type": "string", "minLength": 1, "description": "Paragraph under the main heading" },
+    "shortDuration": { "type": "string", "minLength": 1, "description": "Estimated time for the short track" },
+    "longDuration": { "type": "string", "minLength": 1, "description": "Estimated time for the full track" },
+    "beforeStart": { "type": "string", "minLength": 1, "description": "Note after the bold label 'before you start'" }
+  }
+}

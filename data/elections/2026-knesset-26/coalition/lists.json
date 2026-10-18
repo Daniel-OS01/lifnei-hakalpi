@@ -1,0 +1,275 @@
+{
+ "$schema": "../../../../schemas/coalition-lists.schema.json",
+ "schemaVersion": 1,
+ "gov": {
+  "likud": {
+   "t": "ממשלה 35 (2020) ו-37 (מדצמבר 2022), בשתיהן בראשות נתניהו.",
+   "src": [
+    "likud-claim-coalition-composition-25",
+    "likud-claim-regev-earlier-ministries-odata"
+   ]
+  },
+  "yashar": {
+   "t": "הרשימה חדשה. איזנקוט כיהן כשר בממשלה 37 מ-12.10.2023 ועד שהתפטר ב-9.6.2024. ארבעה מעשרת הראשונים ברשימה היו שרים בממשלה 36.",
+   "src": [
+    "yashar-claim-eisenkot-resigned-gov-2024",
+    "yashar-claim-farkash-roles-odata"
+   ]
+  },
+  "beyahad": {
+   "t": "בנט ולפיד עמדו בראש ממשלה 36 (2021 עד 2022). לפיד פרש מכחול לבן במרץ 2020 כדי לא להצטרף לממשלה 35.",
+   "src": [
+    "beyahad-claim-govt-2021-2022",
+    "beyahad-claim-lapid-yaalon-split-2020-03-27"
+   ]
+  },
+  "hademokratim": {
+   "t": "העבודה הצטרפה לממשלה 35 (2020) ומרצ נשארה בחוץ. שתיהן ישבו בממשלה 36, וגולן כיהן בה כסגן שר.",
+   "src": [
+    "hademokratim-claim-labor-peretz-shmuli-join-2020-gov",
+    "hademokratim-claim-golan-economy-deputy-minister"
+   ]
+  },
+  "hadash-taal": {
+   "t": "לא ישבה באף ממשלה מאז 2020.",
+   "src": [
+    "issues/coalition-lines.html"
+   ]
+  },
+  "otzma-yehudit": {
+   "t": "ממשלה 37 מנובמבר 2022. פרשה ב-16.1.2025 וחזרה ב-18.3.2025.",
+   "src": [
+    "otzma-claim-coalition-agreement-2022",
+    "otzma-claim-exit-2025",
+    "otzma-claim-return-2025"
+   ]
+  },
+  "utj": {
+   "t": "ממשלה 35 (2020) וממשלה 37 (מדצמבר 2022). פרשה מהממשלה ומהקואליציה ביולי 2025.",
+   "src": [
+    "utj-claim-goldknopf-roles",
+    "utj-claim-coalition-exit-2025-07"
+   ]
+  },
+  "yisrael-beiteinu": {
+   "t": "ממשלה 36 (2021 עד 2022), ליברמן כשר האוצר. לא ישבה בממשלות 35 ו-37.",
+   "src": [
+    "yb-claim-2021-coalition-redline",
+    "yb-claim-lieberman-2020-coalition-principle"
+   ]
+  },
+  "shas": {
+   "t": "ממשלה 35 (2020) וממשלה 37 (מדצמבר 2022). שריה התפטרו ביולי 2025, והמפלגה נשארה בקואליציה.",
+   "src": [
+    "shas-claim-coalition-membership",
+    "shas-claim-withdrawal-government-2025-07"
+   ]
+  },
+  "religious-zionism": {
+   "t": "ממשלה 37 מדצמבר 2022, סמוטריץ' כשר האוצר. לא ישבה בממשלות 35 ו-36.",
+   "src": [
+    "rz-claim-smotrich-positions-odata",
+    "rz-claim-coalition-2022-composition"
+   ]
+  },
+  "raam": {
+   "t": "ממשלה 36 (2021 עד 2022), חברה בקואליציה.",
+   "src": [
+    "raam-claim-coalition-2021"
+   ]
+  },
+  "amcha-israel": {
+   "t": "רשימה חדשה. איש מעשרת הראשונים לא כיהן בכנסת או בממשלה.",
+   "src": [
+    "amcha-claim-list-top10"
+   ]
+  },
+  "miluimnikim": {
+   "t": "הרשימה חדשה. הנדל כיהן כשר בממשלה 35 (מאי עד דצמבר 2020) ובממשלה 36.",
+   "src": [
+    "mil-claim-hendel-minister-terms",
+    "mil-claim-hendel-minister-was-under-netanyahu-2020"
+   ]
+  },
+  "kachol-lavan": {
+   "t": "ממשלות 35 ו-36 (גנץ שר הביטחון), ובממשלה 37 מ-12.10.2023 עד 13.6.2024.",
+   "src": [
+    "kl-claim-gantz-roles-odata",
+    "kl-claim-gantz-war-cabinet"
+   ]
+  },
+  "noam": {
+   "t": "ממשלה 37: מעוז כיהן כסגן שר עד מרץ 2025 ונשאר חבר קואליציה.",
+   "src": [
+    "noam-claim-coalition-agreement-2022-11-26",
+    "noam-claim-resignation-2025"
+   ]
+  }
+ },
+ "cond": {
+  "amcha-israel": {
+   "t": "חקיקת \"חוק משרתים\" לפני השבעת הממשלה היא \"תנאי סף עבור כניסתנו לכל ממשלה\" (15.9.2026).",
+   "src": [
+    "amcha-claim-draft-law-coalition-threshold-2026"
+   ]
+  },
+  "kachol-lavan": {
+   "t": "מתווה \"שירות לכל\" יועבר לפני הקמת הממשלה, \"כתנאי להשבעתה\" (15.9.2026).",
+   "src": [
+    "kl-claim-draft-law-coalition-threshold-2026"
+   ]
+  },
+  "shas": {
+   "t": "דרעי, 14.5.2026: \"לא ניכנס לקואליציה ולממשלה בלי שנסדיר את מעמדם של לומדי התורה\".",
+   "src": [
+    "shas-claim-ultimatum-2026-05"
+   ]
+  },
+  "otzma-yehudit": {
+   "t": "בן גביר, 20.7.2026: תנאי הסף לכניסה לממשלה הבאה הוא הדחת היועצת המשפטית לממשלה.",
+   "src": [
+    "otzma-claim-ag-removal-coalition-condition-2026-07-20"
+   ]
+  },
+  "religious-zionism": {
+   "t": "לפי הדיווח, תוכנית המפלגה לשינוי מערכת המשפט \"הוצגה כתנאי סף לכניסה לכל קואליציה עתידית\" (15.9.2026).",
+   "src": [
+    "rz-claim-judicial-plan-coalition-condition"
+   ]
+  },
+  "beyahad": {
+   "t": "בנט, 5.1.2026: תמיכה ב\"חוק המשרתים\" היא תנאי כניסה לממשלה בראשותו.",
+   "src": [
+    "beyahad-claim-bennett-draft-condition-2026-01-05"
+   ]
+  },
+  "yisrael-beiteinu": {
+   "t": "במצע: הממשלה הבאה \"תורכב אך ורק ממפלגות ציוניות\". ליברמן, 17.8.2026: לא תהיה שותפה \"בשום קונסטלציה לממשלת מיעוט\".",
+   "src": [
+    "yb-claim-platform-zionist-government",
+    "yb-claim-liberman-minority-post-2026-08-17"
+   ]
+  },
+  "miluimnikim": {
+   "t": "הנדל, 13.9.2026: \"אנחנו לא נשב בממשלה צרה שבה אי אפשר להעביר חוק גיוס\". על ההמלצה (13.10.2026): \"מי שמביא הכי הרבה מנדטים ציוניים, נמליץ עליו\".",
+   "src": [
+    "mil-claim-hendel-narrow-government-2026-09-13",
+    {
+     "u": "https://www.ynet.co.il/news/elections2026/article/sywy11bjize",
+     "o": "ynet",
+     "d": "2026-10-13"
+    }
+   ]
+  },
+  "yashar": {
+   "t": "שלושה עקרונות לכל שותף (16.9.2026). לפי הארץ (17.8.2026), איזנקוט נערך להקים גם ממשלת מיעוט: \"גם אם נקבל 58 או 59 מנדטים ציוניים... אציג ממשלה\".",
+   "src": [
+    "yashar-claim-coalition-principles-party-2026-09-16",
+    "yashar-claim-eisenkot-minority-gov-2026-08"
+   ]
+  },
+  "hademokratim": {
+   "t": "גולן, 31.5.2026: לא ימליצו בהכרח על ראש המפלגה הגדולה במחנה, אלא על מי שיסכים לערכים ולדרך של הדמוקרטים.",
+   "src": [
+    "hademokratim-claim-golan-recommendation"
+   ]
+  },
+  "hadash-taal": {
+   "t": "ביוני 2026 הסכימו חד\"ש, תע\"ל ובל\"ד לרוץ יחד גם בלי הסכמה מלאה על ההמלצה לנשיא ועל הצטרפות לקואליציה.",
+   "src": [
+    "hadash-claim-technical-list-position-2026-06"
+   ]
+  },
+  "raam": {
+   "t": "רע\"ם אומרת שהיא רוצה להיות בתוך הקואליציה. ביוני 2026 דרשה משותפותיה להתחייב מראש לתמוך בממשלת שינוי.",
+   "src": [
+    "raam-claim-principles-document-2026-06-09",
+    "raam-claim-change-government-statement"
+   ]
+  },
+  "utj": {
+   "t": "אשר, 20.7.2026: \"מי שרוצה אותנו כשותפים יצטרך לבוא ולהצטרף אלינו\". במאי 2026 הועבר לחברי הכנסת של דגל התורה מסר שלפיו \"המושג גוש אינו קיים יותר\".",
+   "src": [
+    "utj-claim-asher-not-automatic-2026-07-20",
+    "utj-claim-dissolution-message-2026-05-12"
+   ]
+  },
+  "noam": {
+   "t": "מעוז, 3.2.2026: בהרכבת הממשלה הבאה יבקש את תיק החינוך.",
+   "src": [
+    "noam-claim-maoz-next-government-education-2026-02-03"
+   ]
+  },
+  "likud": {
+   "t": "נתניהו, 30.6.2026: מקומן של המפלגות החרדיות ושל סמוטריץ' בממשלה הבאה \"זו לא שאלה בכלל\".",
+   "src": [
+    "likud-claim-netanyahu-current-partners-2026-06-30"
+   ]
+  }
+ },
+ "nuance": {
+  "beyahad": [
+   {
+    "t": "לפי ההסכם בין בנט ללפיד (כאן חדשות, 26.4.2026), לפיד ויש עתיד יוכלו להתפצל אחרי הבחירות ולשמור על מוסדות המפלגה.",
+    "src": [
+     "beyahad-claim-union-agreement-2026-04-26"
+    ]
+   }
+  ],
+  "miluimnikim": [
+   {
+    "t": "זליכה, 6.9.2026: שתי המפלגות ירוצו \"בחיבור טכני, אבל ככוח אחד\", כשתי מפלגות עצמאיות.",
+    "src": [
+     "mil-claim-union-zlicha-2026-09-06"
+    ]
+   }
+  ],
+  "yashar": [
+   {
+    "t": "לפי ynet, החיבור עם \"בית ציוני\" של טרופר אינו בלוק טכני, וטרופר לא יוכל לפצל את הסיעה.",
+    "src": [
+     "yashar-claim-tropper-agreement-2026-09"
+    ]
+   },
+   {
+    "t": "הבדלים בתוך הרשימה: טרופר אמר ב-11.7.2026 \"אני בעד ממשלה ציונית בלבד\", לפני שהצטרף. יורם כהן אמר ב-9.5.2026 שאינו שולל שותפות עם מפלגות ערביות בכפוף לשלושה תנאים. אף אחד מהם אינו ראש הרשימה.",
+    "src": [
+     "yashar-claim-tropper-zionist-government-2026-07-11",
+     "yashar-claim-cohen-n12-2026-05"
+    ]
+   }
+  ],
+  "hadash-taal": [
+   {
+    "t": "שלוש המפלגות הסכימו על רשימה משותפת בלי הסכמה מלאה על ההמלצה לנשיא ועל הצטרפות לקואליציה.",
+    "src": [
+     "hadash-claim-technical-list-position-2026-06"
+    ]
+   }
+  ],
+  "utj": [
+   {
+    "t": "בין אגודת ישראל לדגל התורה יש \"הסכמי תורנות\" שקובעים מי עומד בראש הרשימה המאוחדת (ynet, 31.8.2026).",
+    "src": [
+     "utj-claim-rotation-agreements-2026-08-31"
+    ]
+   }
+  ],
+  "religious-zionism": [
+   {
+    "t": "הרשימה נוצרה מחיבור עם \"זהות\" של פייגלין. לפי הדיווחים, המגעים היו על \"בלוק טכני\".",
+    "src": [
+     "rz-claim-feiglin-agreement"
+    ]
+   }
+  ],
+  "hademokratim": [
+   {
+    "t": "ב-2020 הצטרפה העבודה לממשלת נתניהו וגנץ ומרצ נשארה באופוזיציה. היום שתיהן ברשימה אחת.",
+    "src": [
+     "hademokratim-claim-labor-peretz-shmuli-join-2020-gov"
+    ]
+   }
+  ]
+ }
+}

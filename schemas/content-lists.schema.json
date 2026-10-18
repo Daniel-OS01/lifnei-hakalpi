@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lifnei-hakalpi.local/schemas/content-lists.schema.json",
+  "title": "content/lists.json",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "tableReadAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "platformsCheckedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "note": {
+      "type": "string",
+      "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+    },
+    "lists": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "n": {
+            "type": "string",
+            "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+          },
+          "l": {
+            "type": "string",
+            "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+          },
+          "cand": {
+            "type": "string",
+            "pattern": "^https?://\\S+$"
+          },
+          "pl": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^https?://\\S+$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pt": {
+            "type": "string",
+            "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+          },
+          "src": {
+            "type": "string",
+            "pattern": "^https?://\\S+$"
+          },
+          "documented": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "legal": {
+            "type": "string",
+            "pattern": "^[^\\u2013\\u2014\\u2015]*$"
+          },
+          "conductCheck": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "readAt": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            "required": [
+              "total",
+              "readAt"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "n",
+          "l",
+          "cand",
+          "pl",
+          "pt",
+          "documented",
+          "legal",
+          "conductCheck"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "tableReadAt",
+    "platformsCheckedAt",
+    "lists"
+  ],
+  "additionalProperties": false
+}

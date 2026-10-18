@@ -1,0 +1,10 @@
+{
+  "$schema": "../../../../schemas/content-results.schema.json",
+  "economy": {
+    "lead": "לכלכלה: ",
+    "links": [
+      { "url": "https://www.thepetek.com/he/issue/econ", "text": "סיכום עמדות הרשימות בכלכלה באתר הפתק", "after": " (סיכום עריכתי, 14 רשימות, עודכן 13.10) ו" },
+      { "url": "https://funder.co.il/article/211228", "text": "סקירת ההבטחות בפנסיה, בנקאות וקצבאות ב-FUNDER", "after": " (8.10, 6 רשימות)." }
+    ]
+  }
+}

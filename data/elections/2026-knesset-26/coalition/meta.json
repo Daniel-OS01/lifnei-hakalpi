@@ -1,0 +1,17 @@
+{
+ "$schema": "../../../../schemas/coalition-meta.schema.json",
+ "schemaVersion": 1,
+ "issue": "issues/coalition-lines.html",
+ "qt": {
+  "BB": "סירוב לממשלה בראשות נתניהו",
+  "RAAM": "צירוף רע\"ם לקואליציה במקום בחירות",
+  "OUT": "תמיכה מבחוץ של מפלגות ערביות",
+  "HAR": "סירוב לשבת עם ש\"ס ויהדות התורה"
+ },
+ "coalQuestions": {
+  "BB": "q-netanyahu-government",
+  "RAAM": "q-raam-coalition",
+  "OUT": "q-arab-parties-outside-support",
+  "HAR": "q-haredi-parties-coalition"
+ }
+}

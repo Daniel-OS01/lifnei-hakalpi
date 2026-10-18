@@ -1,0 +1,211 @@
+{
+ "$schema": "../../../../schemas/content-lists.schema.json",
+ "schemaVersion": 1,
+ "tableReadAt": "2026-10-16",
+ "platformsCheckedAt": "2026-10-15",
+ "note": "documented, legal and conductCheck are read from the source's lists table (16.10.2026). conductCheck is a cross-check of the conduct counts computed from the data file.",
+ "lists": {
+  "yashar": {
+   "n": "ישר! עם איזנקוט",
+   "l": "גדי איזנקוט",
+   "cand": "https://www.idi.org.il/media/32324/ישר.pdf",
+   "pl": "https://yasharwitheisenkot.com/principles/",
+   "pt": "תוכניות ו-10 הצעדים, באתר המפלגה",
+   "documented": 23,
+   "legal": "אין",
+   "conductCheck": {
+    "total": 3,
+    "readAt": "2026-10-16"
+   }
+  },
+  "likud": {
+   "n": "הליכוד",
+   "l": "בנימין נתניהו",
+   "cand": "https://www.idi.org.il/media/32314/הליכוד.pdf",
+   "pl": null,
+   "pt": "לא פורסם מצע לבחירות 2026. לפי המאגר הליכוד אינו מפרסם מצע בחירות מאז 2009, וכך גם לפי FUNDER (8.10) ו-handled.team (29.9). באתר המפלגה יש עמוד עקרונות והישגים.",
+   "src": "https://elections2026.underwar.co.il/methodology.html",
+   "documented": 26,
+   "legal": "1 הרשעה · 2 משפטים מתנהלים · 3 חקירות · 1 האשמה · 3 תיקים שנסגרו",
+   "conductCheck": {
+    "total": 24,
+    "readAt": "2026-10-16"
+   }
+  },
+  "beyahad": {
+   "n": "ביחד",
+   "l": "נפתלי בנט (בנט 2026 ויש עתיד)",
+   "cand": "https://www.idi.org.il/media/32309/ביחד.pdf",
+   "pl": "https://be-yahad.org.il/plans/",
+   "pt": "\"תכניות התיקון של ישראל\", באתר הרשימה",
+   "documented": 15,
+   "legal": "אין",
+   "conductCheck": {
+    "total": 9,
+    "readAt": "2026-10-16"
+   }
+  },
+  "hademokratim": {
+   "n": "הדמוקרטים",
+   "l": "יאיר גולן (העבודה ומרצ)",
+   "cand": "https://www.idi.org.il/media/32313/הדמוקרטים.pdf",
+   "pl": "https://yes.democrats.org.il/",
+   "pt": "תוכניות העבודה של הדמוקרטים",
+   "documented": 10,
+   "legal": "3 האשמות · 1 תיק שנסגר",
+   "conductCheck": {
+    "total": 5,
+    "readAt": "2026-10-16"
+   }
+  },
+  "yisrael-beiteinu": {
+   "n": "ישראל ביתנו",
+   "l": "אביגדור ליברמן",
+   "cand": "https://www.idi.org.il/media/32325/ישראל-ביתנו.pdf",
+   "pl": "https://beytenu.org.il/party-platform/",
+   "pt": "\"המצע שלנו\" ו\"קווי היסוד לממשלה הבאה\"",
+   "documented": 10,
+   "legal": "1 זיכוי",
+   "conductCheck": {
+    "total": 5,
+    "readAt": "2026-10-16"
+   }
+  },
+  "hadash-taal": {
+   "n": "הרשימה המשותפת",
+   "l": "יוסף ג'בארין (חד\"ש, תע\"ל ובל\"ד)",
+   "cand": "https://www.idi.org.il/media/32320/הרשימה-המשותפת.pdf",
+   "pl": "https://jointlist.org.il/he/economic-plan/",
+   "pt": "התוכנית הכלכלית-חברתית של הרשימה המשותפת. לפי handled.team (29.9) לא פורסם מצע מלא.",
+   "documented": 10,
+   "legal": "1 הרשעה · 1 האשמה",
+   "conductCheck": {
+    "total": 11,
+    "readAt": "2026-10-16"
+   }
+  },
+  "otzma-yehudit": {
+   "n": "עוצמה יהודית",
+   "l": "איתמר בן גביר",
+   "cand": "https://www.idi.org.il/media/32332/עוצמה-יהודית.pdf",
+   "pl": null,
+   "pt": "לא פורסם מצע מלא, לפי המאגר ולפי handled.team (29.9).",
+   "src": "https://elections.handled.team/",
+   "documented": 10,
+   "legal": "3 הרשעות · 1 כתב אישום · 2 חקירות · 1 זיכוי · 1 תיק שנסגר, אצל 4 מועמדים",
+   "conductCheck": {
+    "total": 28,
+    "readAt": "2026-10-16"
+   }
+  },
+  "utj": {
+   "n": "יהדות התורה",
+   "l": "יעקב אשר",
+   "cand": "https://www.idi.org.il/media/32323/יהדות-התורה.pdf",
+   "pl": null,
+   "pt": "לא פורסם מצע, לפי המאגר ולפי handled.team (29.9).",
+   "src": "https://elections.handled.team/",
+   "documented": 10,
+   "legal": "1 הרשעה · 1 חקירה",
+   "conductCheck": {
+    "total": 6,
+    "readAt": "2026-10-16"
+   }
+  },
+  "shas": {
+   "n": "ש\"ס",
+   "l": "אריה דרעי",
+   "cand": "https://www.idi.org.il/media/32339/שס.pdf",
+   "pl": null,
+   "pt": "לא פורסם מצע, לפי המאגר ולפי handled.team (29.9).",
+   "src": "https://elections.handled.team/",
+   "documented": 13,
+   "legal": "3 הרשעות · 1 חקירה · 1 האשמה, אצל 3 מועמדים",
+   "conductCheck": {
+    "total": 7,
+    "readAt": "2026-10-16"
+   }
+  },
+  "religious-zionism": {
+   "n": "הציונות הדתית",
+   "l": "בצלאל סמוטריץ' (הציונות הדתית וזהות)",
+   "cand": "https://www.idi.org.il/media/32318/הציונות-הדתית.pdf",
+   "pl": "https://zionutdatit.org.il/%D7%9E%D7%A6%D7%A2-%D7%94%D7%9E%D7%A4%D7%9C%D7%92%D7%94/",
+   "pt": "מצע מפלגת הציונות הדתית. העמוד פורסם לראשונה ב-2021; לפי handled.team (29.9) לא פורסם מצע לרשימה המשותפת עם זהות.",
+   "documented": 10,
+   "legal": "1 הרשעה · 1 חקירה · 2 תיקים שנסגרו",
+   "conductCheck": {
+    "total": 9,
+    "readAt": "2026-10-16"
+   }
+  },
+  "raam": {
+   "n": "רע\"ם",
+   "l": "מנסור עבאס",
+   "cand": "https://www.idi.org.il/media/32337/רעמ.pdf",
+   "pl": null,
+   "pt": "לא פורסם מצע, לפי המאגר ולפי handled.team (29.9).",
+   "src": "https://elections.handled.team/",
+   "documented": 10,
+   "legal": "אין",
+   "conductCheck": {
+    "total": 3,
+    "readAt": "2026-10-16"
+   }
+  },
+  "amcha-israel": {
+   "n": "עמך ישראל",
+   "l": "עופר וינטר",
+   "cand": "https://www.idi.org.il/media/32333/עמך-ישראל.pdf",
+   "pl": "https://amchaisrael.co.il/foundations",
+   "pt": "\"מסמך אבני היסוד של התנועה\". לפי המאגר אין לרשימה מצע כתוב.",
+   "documented": 11,
+   "legal": "1 כתב אישום · 1 האשמה",
+   "conductCheck": {
+    "total": 1,
+    "readAt": "2026-10-16"
+   }
+  },
+  "miluimnikim": {
+   "n": "המילואימניקים והכלכלית",
+   "l": "יועז הנדל וירון זליכה",
+   "cand": "https://www.idi.org.il/media/32315/המילואימניקים-והכלכלית.pdf",
+   "pl": "https://www.themiluimnikim.org.il/platform/",
+   "pt": "עקרונות ועיקרי המצע של המילואימניקים. לפי handled.team (29.9) אין מצע משותף לכל הרשימה.",
+   "documented": 10,
+   "legal": "1 חקירה · 1 האשמה · 1 תיק שנסגר",
+   "conductCheck": {
+    "total": 1,
+    "readAt": "2026-10-16"
+   }
+  },
+  "kachol-lavan": {
+   "n": "כחול לבן",
+   "l": "בני גנץ",
+   "cand": "https://www.idi.org.il/media/32327/כחול-לבן.pdf",
+   "pl": null,
+   "pt": "לפי handled.team (29.9) נמצא רק מצע קודם מ-2025, ולא מצע מעודכן לבחירות 2026. האתר חוסם גישה אוטומטית ולכן לא נבדק ישירות.",
+   "src": "https://elections.handled.team/",
+   "documented": 10,
+   "legal": "אין",
+   "conductCheck": {
+    "total": 1,
+    "readAt": "2026-10-16"
+   }
+  },
+  "noam": {
+   "n": "נעם לישראל",
+   "l": "אבי מעוז",
+   "cand": "https://www.idi.org.il/media/32330/נעם.pdf",
+   "pl": null,
+   "pt": "לא פורסם מצע מלא, לפי handled.team (29.9).",
+   "src": "https://elections.handled.team/",
+   "documented": 10,
+   "legal": "1 כתב אישום",
+   "conductCheck": {
+    "total": 5,
+    "readAt": "2026-10-16"
+   }
+  }
+ }
+}
