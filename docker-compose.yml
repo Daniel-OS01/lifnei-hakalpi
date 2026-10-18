@@ -7,9 +7,7 @@ services:
     restart: unless-stopped
     read_only: true
     tmpfs:
-      - /var/cache/nginx
-      - /var/run
-      - /tmp
+      - /tmp:mode=1777
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/healthz"]
       interval: 30s
